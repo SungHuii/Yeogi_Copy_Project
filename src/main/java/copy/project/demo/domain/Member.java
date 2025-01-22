@@ -1,7 +1,10 @@
 package copy.project.demo.domain;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created by SungHui on 2025. 1. 22.
@@ -9,14 +12,13 @@ import java.util.Date;
 @Entity
 public class Member { // 회원 정보
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private int id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private MemberType type;
 
-    @Column(name = "member_name")
     private String name;
 
     private String nickname;
@@ -26,15 +28,20 @@ public class Member { // 회원 정보
     @Enumerated(EnumType.STRING)
     private MemberGender gender;
 
-    private Date birthDate;
+    /* 시간 정보 없이 날짜(yyyy-MM-dd)만 표현 가능 */
+    private LocalDate birthDate;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt; // 회원 등록 일자
+
 
 
     // Getter & Setter
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -78,15 +85,15 @@ public class Member { // 회원 정보
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    // toString
+    // toStringx`
     @Override
     public String toString() {
         return "Member{" +
