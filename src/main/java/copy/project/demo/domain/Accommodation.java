@@ -1,10 +1,7 @@
 package copy.project.demo.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,116 +13,38 @@ import java.util.List;
 * AccommodationRoom
 * */
 @Entity
-public class Accommodation { // 숙소 정보
+public class Accommodation extends CommonEntity{ // 숙소 정보
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "accommodation_id")
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Lob
+    @Column(name = "description")
     private String description;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
     private AccommodationType type;
 
+    @Column(name = "address", nullable = false)
     private String address;
-    
+
+    @Column(name = "latitude", nullable = false)
     private BigDecimal latitude; // 위도
-    
+
+    @Column(name = "longitude", nullable = false)
     private BigDecimal longitude; // 경도
 
     @Lob
+    @Column(name = "image_url")
     private String imageUrl;
-
-    @CreationTimestamp
-    private LocalDateTime createdAt; // 숙소 등록 일자
 
     @OneToMany(mappedBy = "accommodation")
     private List<AccommodationRoom> roomList = new ArrayList<>();
-
-
-    // Getter & Setter
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public AccommodationType getType() {
-        return type;
-    }
-
-    public void setType(AccommodationType type) {
-        this.type = type;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(BigDecimal latitude) {
-        this.latitude = latitude;
-    }
-
-    public BigDecimal getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(BigDecimal longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public List<AccommodationRoom> getRoomList() {
-        return roomList;
-    }
-
-    public void setRoomList(List<AccommodationRoom> roomList) {
-        this.roomList = roomList;
-    }
 
     @Override
     public String toString() {
@@ -138,7 +57,6 @@ public class Accommodation { // 숙소 정보
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", createdAt=" + createdAt +
                 ", roomList=" + roomList +
                 '}';
     }

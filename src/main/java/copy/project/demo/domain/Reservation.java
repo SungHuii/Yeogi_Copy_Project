@@ -1,19 +1,20 @@
 package copy.project.demo.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Created by SungHui on 2025. 1. 22.
  */
 @Entity
-public class Reservation {
+@Getter
+@Setter
+public class Reservation extends CommonEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reservation_id")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
@@ -21,101 +22,28 @@ public class Reservation {
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "accommmodation_room_id", nullable = false)
+    @JoinColumn(name = "accommodation_room_id", nullable = false)
     private AccommodationRoom accommodationRoom;
 
+    @Column(name = "reservation_date", nullable = false)
     private LocalDate reservationDate;
+
+    @Column(name = "check_in", nullable = false)
     private LocalDate checkIn;
+
+    @Column(name = "check_out", nullable = false)
     private LocalDate checkOut;
+
+    @Column(name = "guest_count", nullable = false)
     private int guestCount;
+
+    @Column(name = "total_price", nullable = false)
     private int totalPrice;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     private ReservationStatus status;
 
-    @CreationTimestamp
-    private LocalDateTime createAt; // 정보가 만들어진 날짜
-
-    // Getter & Setter
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
-    public AccommodationRoom getAccommodationRoom() {
-        return accommodationRoom;
-    }
-
-    public void setAccommodationRoom(AccommodationRoom accommodationRoom) {
-        this.accommodationRoom = accommodationRoom;
-    }
-
-    public LocalDate getReservationDate() {
-        return reservationDate;
-    }
-
-    public void setReservationDate(LocalDate reservationDate) {
-        this.reservationDate = reservationDate;
-    }
-
-    public LocalDate getCheckIn() {
-        return checkIn;
-    }
-
-    public void setCheckIn(LocalDate checkIn) {
-        this.checkIn = checkIn;
-    }
-
-    public LocalDate getCheckOut() {
-        return checkOut;
-    }
-
-    public void setCheckOut(LocalDate checkOut) {
-        this.checkOut = checkOut;
-    }
-
-    public int getGuestCount() {
-        return guestCount;
-    }
-
-    public void setGuestCount(int guestCount) {
-        this.guestCount = guestCount;
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public ReservationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ReservationStatus status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(LocalDateTime createAt) {
-        this.createAt = createAt;
-    }
 
     @Override
     public String toString() {
@@ -129,7 +57,6 @@ public class Reservation {
                 ", guestCount=" + guestCount +
                 ", totalPrice=" + totalPrice +
                 ", status=" + status +
-                ", createAt=" + createAt +
                 '}';
     }
 }
