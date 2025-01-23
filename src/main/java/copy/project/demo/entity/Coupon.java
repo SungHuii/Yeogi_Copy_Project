@@ -1,5 +1,6 @@
-package copy.project.demo.domain;
+package copy.project.demo.entity;
 
+import copy.project.demo.entity.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class Coupon extends CommonEntity{
+public class Coupon extends CommonEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

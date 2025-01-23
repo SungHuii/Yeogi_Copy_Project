@@ -1,16 +1,13 @@
-package copy.project.demo.domain;
+package copy.project.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-/**
- * Created by SungHui on 2025. 1. 23.
- */
 
 @Entity
 @Getter
 @Setter
-public class Review extends CommonEntity{
+public class Favorite {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,20 +21,12 @@ public class Review extends CommonEntity{
     @JoinColumn(name = "accommodation_id", nullable = false)
     private Accommodation accommodation;
 
-    @Column(name = "rating", nullable = false)
-    private byte rating;
-
-    @Column(name = "comment")
-    private String comment;
-
     @Override
     public String toString() {
-        return "Review{" +
+        return "Favorite{" +
                 "id=" + id +
                 ", member=" + member +
                 ", accommodation=" + accommodation +
-                ", rating=" + rating +
-                ", comment='" + comment + '\'' +
                 '}';
     }
 }

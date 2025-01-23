@@ -1,5 +1,7 @@
-package copy.project.demo.domain;
+package copy.project.demo.entity;
 
+import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.entity.enums.AccommodationType;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import java.util.List;
 * AccommodationRoom
 * */
 @Entity
-public class Accommodation extends CommonEntity{ // 숙소 정보
+public class Accommodation extends CommonEntity { // 숙소 정보
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

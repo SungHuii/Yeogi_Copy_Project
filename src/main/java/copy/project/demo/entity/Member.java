@@ -1,5 +1,8 @@
-package copy.project.demo.domain;
+package copy.project.demo.entity;
 
+import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.entity.enums.MemberGender;
+import copy.project.demo.entity.enums.MemberType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +15,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Table(name = "member")
-public class Member extends CommonEntity{ // 회원 정보
+public class Member extends CommonEntity { // 회원 정보
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

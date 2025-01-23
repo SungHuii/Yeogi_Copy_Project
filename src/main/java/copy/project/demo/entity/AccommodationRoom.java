@@ -1,5 +1,6 @@
-package copy.project.demo.domain;
+package copy.project.demo.entity;
 
+import copy.project.demo.entity.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class AccommodationRoom extends CommonEntity{ // 숙소 방 정보
+public class AccommodationRoom extends CommonEntity { // 숙소 방 정보
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

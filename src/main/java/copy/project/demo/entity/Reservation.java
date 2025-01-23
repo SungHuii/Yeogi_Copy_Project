@@ -1,5 +1,7 @@
-package copy.project.demo.domain;
+package copy.project.demo.entity;
 
+import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.entity.enums.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-public class Reservation extends CommonEntity{
+public class Reservation extends CommonEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
