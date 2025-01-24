@@ -5,7 +5,7 @@ import copy.project.demo.entity.enums.MemberGender;
 import copy.project.demo.entity.enums.MemberType;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 /**
@@ -13,7 +13,7 @@ import java.time.LocalDate;
  */
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor
 @Table(name = "member")
 public class Member extends CommonEntity { // 회원 정보
 

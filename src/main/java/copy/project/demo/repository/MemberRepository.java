@@ -4,7 +4,9 @@ import copy.project.demo.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
-
+/**
+ * Created by SungHui on 2025. 1. 24.
+ */
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     // CRUD 메서드 (save, findById, findAll)는 JpaRepository로 해결

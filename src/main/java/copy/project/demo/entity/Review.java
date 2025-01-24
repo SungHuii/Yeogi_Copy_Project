@@ -3,14 +3,14 @@ package copy.project.demo.entity;
 import copy.project.demo.entity.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 /**
  * Created by SungHui on 2025. 1. 23.
  */
 
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor
 public class Review extends CommonEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

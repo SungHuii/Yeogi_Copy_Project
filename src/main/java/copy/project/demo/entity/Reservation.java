@@ -4,7 +4,7 @@ import copy.project.demo.entity.common.CommonEntity;
 import copy.project.demo.entity.enums.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 /**
@@ -12,7 +12,7 @@ import java.time.LocalDate;
  */
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor
 public class Reservation extends CommonEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

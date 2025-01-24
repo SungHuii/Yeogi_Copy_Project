@@ -7,20 +7,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+/**
+ * Created by SungHui on 2025. 1. 24.
+ */
 
 @Transactional
 @RequiredArgsConstructor
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
-
-    /*
-    @RequiredArgsConstructor 애너테이션으로 생성자 자동 주입
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
-    */
 
     public Member saveMember(Member member) {
         return memberRepository.save(member);

@@ -2,11 +2,11 @@ package copy.project.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor
 public class Favorite {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

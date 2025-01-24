@@ -3,7 +3,7 @@ package copy.project.demo.entity;
 import copy.project.demo.entity.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor
 public class Coupon extends CommonEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
