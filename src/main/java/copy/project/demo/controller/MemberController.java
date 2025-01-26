@@ -56,6 +56,4 @@ public class MemberController {
                 .orElseThrow(() -> new RuntimeException("해당 번호의 회원이 없습니다."));
         return mm.map(memberByPhone, MemberDTO.class);
     }
-
-
 }
