@@ -18,7 +18,7 @@ public class MemberController {
     private final MemberService memberService;
     private final ModelMapper mm;
 
-    /* ModelMapper를 이용해 MemberDTO를 가져옴 */
+    /* ModelMapper를 이용해 MemberDTO를 가져옴 */   
     @PostMapping
     public MemberDTO createMember(@RequestBody Member member){
         Member savedMember = memberService.saveMember(member);

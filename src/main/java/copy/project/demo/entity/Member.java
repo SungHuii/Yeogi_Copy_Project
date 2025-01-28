@@ -42,6 +42,16 @@ public class Member extends CommonEntity { // 회원 정보
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
+    public Member(Long id, MemberType type, String name, String nickname, String phone, MemberGender gender, LocalDate birthDate) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.nickname = nickname;
+        this.phone = phone;
+        this.gender = gender;
+        this.birthDate = birthDate;
+    }
+
     // toString`
     @Override
     public String toString() {
