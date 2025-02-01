@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Created by SungHui on 2025. 1. 28.
  */
+
+/* MemberService 메서드 테스트 */
 @SpringBootTest
 @Transactional
 class MemberServiceTest {
@@ -84,14 +87,19 @@ class MemberServiceTest {
       assertEquals(member.getNickname(), foundMember.get().getNickname());
    }
 
+   @Test
+   void findMemberByPhone() {
 
+      // given
+      Member member = TestUtils.createTestMember();
+      Member savedMember = memberService.saveMember(member);
 
-   public Optional<Member> findMemberByNickname(String nickname) {
-      return memberRepository.findByNickname(nickname);
-   }
+      // when
+      Optional<Member> foundMember = memberService.findMemberByPhone(savedMember.getPhone());
 
-   public Optional<Member> findMemberByPhone(String phone) {
-      return memberRepository.findByPhone(phone);
+      // then
+      assertTrue(foundMember.isPresent());
+      assertEquals(member.getPhone(), foundMember.get().getPhone());
    }
 
 }
