@@ -10,8 +10,18 @@ import org.springframework.context.annotation.Configuration;
 /* ModelMapper를 Bean으로 설정하여 의존성 주입을 받음 */
 @Configuration
 public class ModelMapperConfig {
+
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
+
+        // 필드 매칭 활성화: setter 없이도 필드에 접근할 수 있도록 설정
+        modelMapper.getConfiguration()
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
+
+        return modelMapper;
     }
+
+
 }

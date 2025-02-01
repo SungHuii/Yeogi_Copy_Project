@@ -2,7 +2,9 @@ package copy.project.demo.dto;
 
 import copy.project.demo.entity.enums.MemberGender;
 import copy.project.demo.entity.enums.MemberType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
@@ -11,16 +13,18 @@ import java.time.LocalDate;
  * Created by SungHui on 2025. 1. 24.
  */
 
+
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class MemberDTO {
 
-    private final Long id;
-    private final MemberType type;
-    private final String name;
-    private final String nickname;
-    private final String phone;
-    private final MemberGender gender;
-    private final LocalDate birthDate;
+    private Long id;
+    private MemberType type;
+    private String name;
+    private String nickname;
+    private String phone;
+    private MemberGender gender;
+    private LocalDate birthDate;
 
 }
