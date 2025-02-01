@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Created by SungHui on 2025. 1. 24.
+ * Created by SungHui on 2025. 1. 28.
  */
 
 @Transactional
@@ -60,9 +60,9 @@ class MemberRepositoryTest {
 
       // Given
       Member member = TestUtils.createTestMember();
+      memberRepository.save(member);
 
       // When
-      memberRepository.save(member);
       Optional<Member> foundMember = memberRepository.findByName("sunghui");
 
       // Then
@@ -75,9 +75,9 @@ class MemberRepositoryTest {
 
       // Given
       Member member = TestUtils.createTestMember();
+      memberRepository.save(member);
 
       // When
-      memberRepository.save(member);
       Optional<Member> foundMember = memberRepository.findByNickname("crong");
 
       // Then
@@ -90,9 +90,9 @@ class MemberRepositoryTest {
 
       // Given
       Member member = TestUtils.createTestMember();
+      memberRepository.save(member);
 
       // When
-      memberRepository.save(member);
       Optional<Member> foundMember = memberRepository.findByPhone("01012341234");
 
       // Then
