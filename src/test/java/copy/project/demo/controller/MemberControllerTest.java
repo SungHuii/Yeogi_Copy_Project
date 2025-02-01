@@ -106,9 +106,9 @@ class MemberControllerTest {
 
         // then
         actions.andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("sunghui"))
-                .andExpect(jsonPath("$.nickname").value("crong"))
-                .andExpect(jsonPath("$.phone").value("01012341234"));
+                .andExpect(jsonPath("$[0].name").value("sunghui"))
+                .andExpect(jsonPath("$[0].nickname").value("crong"))
+                .andExpect(jsonPath("$[0].phone").value("01012341234"));
     }
 
     // 회원 조회 테스트 (닉네임)
