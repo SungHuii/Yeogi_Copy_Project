@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 /**
  * Created by SungHui on 2025. 1. 24.
@@ -17,7 +18,16 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+    // 회원 중복확인
+    private void validateDuplicateMember(Member member) {
+        List<Member> findMembers = memberRepository.findByName(member.getName());
+        if (!findMembers.isEmpty()) {
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }
+    }
+
     public Member saveMember(Member member) {
+        validateDuplicateMember(member);
         return memberRepository.save(member);
     }
 
@@ -25,7 +35,7 @@ public class MemberService {
         return memberRepository.findById(id);
     }
 
-    public Optional<Member> findMemberByName(String name) {
+    public List<Member> findMemberByName(String name) {
         return memberRepository.findByName(name);
     }
 

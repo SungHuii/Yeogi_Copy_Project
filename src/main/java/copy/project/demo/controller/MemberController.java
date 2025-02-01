@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Created by SungHui on 2025. 1. 24.
  */
@@ -35,10 +38,16 @@ public class MemberController {
 
     /* 이름으로 회원 찾기 */
     @GetMapping("/name/{name}")
-    public MemberDTO getMemberByName(@PathVariable String name) {
-        Member memberByName = memberService.findMemberByName(name)
-                .orElseThrow(() -> new RuntimeException("해당 이름의 회원이 없습니다."));
-        return mm.map(memberByName, MemberDTO.class);
+    public List<MemberDTO> getMemberByName(@PathVariable String name) {
+        List<Member> memberByName = memberService.findMemberByName(name);
+
+        if(memberByName.isEmpty()) {
+            throw new RuntimeException("해당 이름의 회원이 없습니다.");
+        }
+
+        return memberByName.stream()
+                .map(member -> mm.map(member, MemberDTO.class))
+                .collect(Collectors.toList());
     }
 
     /* 닉네임으로 회원 찾기 */

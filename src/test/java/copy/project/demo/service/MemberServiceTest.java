@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,11 +65,11 @@ class MemberServiceTest {
       Member savedMember = memberService.saveMember(member);
 
       // when
-      Optional<Member> foundMember = memberService.findMemberByName(savedMember.getName());
+      List<Member> foundMember = memberService.findMemberByName(savedMember.getName());
 
       // then
-      assertTrue(foundMember.isPresent());
-      assertEquals(member.getName(), foundMember.get().getName());
+      assertFalse(foundMember.isEmpty());
+      assertEquals(member.getName(), foundMember.iterator().next().getName());
    }
 
    @Test

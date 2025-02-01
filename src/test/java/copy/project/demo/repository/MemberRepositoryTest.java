@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by SungHui on 2025. 1. 28.
@@ -63,11 +63,11 @@ class MemberRepositoryTest {
       memberRepository.save(member);
 
       // When
-      Optional<Member> foundMember = memberRepository.findByName("sunghui");
+      List<Member> foundMember = memberRepository.findByName("sunghui");
 
       // Then
-      assertTrue(foundMember.isPresent());
-      assertEquals(member.getName(), foundMember.get().getName());
+      assertFalse(foundMember.isEmpty());
+      assertEquals(member.getName(), foundMember.iterator().next().getName());
    }
 
    @Test
