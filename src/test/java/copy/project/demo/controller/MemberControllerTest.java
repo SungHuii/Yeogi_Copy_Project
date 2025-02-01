@@ -2,6 +2,7 @@ package copy.project.demo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import copy.project.demo.TestUtils;
+import copy.project.demo.dto.MemberDTO;
 import copy.project.demo.entity.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -49,7 +51,8 @@ class MemberControllerTest {
         // then
         actions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("sunghui"))
-                .andExpect(jsonPath("$.nickname").value("crong"));
+                .andExpect(jsonPath("$.nickname").value("crong"))
+                .andExpect(jsonPath("$.phone").value("01012341234"));
 
     }
 
@@ -57,6 +60,108 @@ class MemberControllerTest {
     @Test
     void getMemberById() throws Exception {
 
+        // given
+        Member member = TestUtils.createTestMember(); // 회원 생성
+        String jMember = om.writeValueAsString(member); // json 문자열로 직렬화
 
+        // POST 요청으로 회원 생성
+        String response = mvc.perform(post("/members")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jMember))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        // response에서 생성된 MemberDTO를 역직렬화해서 ID 추출
+        MemberDTO createdMember = om.readValue(response, MemberDTO.class);
+        Long id = createdMember.getId();
+
+        // when
+        ResultActions actions = mvc.perform(get("/members/id/{id}", id));
+
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("sunghui"))
+                .andExpect(jsonPath("$.nickname").value("crong"))
+                .andExpect(jsonPath("$.phone").value("01012341234"));
+    }
+
+    // 회원 조회 테스트 (이름)
+    @Test
+    void getMemberByName() throws Exception {
+
+        // given
+        Member member = TestUtils.createTestMember();
+        String jMember = om.writeValueAsString(member);
+
+        String response = mvc.perform(post("/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jMember))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        MemberDTO createdMember = om.readValue(response, MemberDTO.class);
+        String name = createdMember.getName();
+
+        // when
+        ResultActions actions = mvc.perform(get("/members/name/{name}", name));
+
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("sunghui"))
+                .andExpect(jsonPath("$.nickname").value("crong"))
+                .andExpect(jsonPath("$.phone").value("01012341234"));
+    }
+
+    // 회원 조회 테스트 (닉네임)
+    @Test
+    void getMemberByNickname() throws Exception {
+
+        // given
+        Member member = TestUtils.createTestMember();
+        String jMember = om.writeValueAsString(member);
+
+        String response = mvc.perform(post("/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jMember))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        MemberDTO createdMember = om.readValue(response, MemberDTO.class);
+        String nickname = createdMember.getNickname();
+
+        // when
+        ResultActions actions = mvc.perform(get("/members/nickname/{nickname}", nickname));
+
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("sunghui"))
+                .andExpect(jsonPath("$.nickname").value("crong"))
+                .andExpect(jsonPath("$.phone").value("01012341234"));
+    }
+
+    // 회원 조회 테스트(휴대폰 번호)
+    @Test
+    void getMemberByPhone() throws Exception {
+
+        // given
+        Member member = TestUtils.createTestMember();
+        String jMember = om.writeValueAsString(member);
+
+        String response = mvc.perform(post("/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jMember))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        MemberDTO createdMember = om.readValue(response, MemberDTO.class);
+        String phone = createdMember.getPhone();
+
+        // when
+        ResultActions actions = mvc.perform(get("/members/phone/{phone}", phone));
+
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("sunghui"))
+                .andExpect(jsonPath("$.nickname").value("crong"))
+                .andExpect(jsonPath("$.phone").value("01012341234"));
     }
 }
