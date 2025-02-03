@@ -12,6 +12,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     // CRUD 메서드 (save, findById, findAll)는 JpaRepository로 해결
 
+    Optional<Member> findByLoginId(String loginId);
     List<Member> findByName(String name);
     Optional<Member> findByNickname(String nickname);
     Optional<Member> findByPhone(String phone);

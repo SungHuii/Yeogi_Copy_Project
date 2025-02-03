@@ -36,6 +36,14 @@ public class MemberController {
         return mm.map(memberById, MemberDTO.class);
     }
 
+    /* 이메일(loginId)로 회원 찾기*/
+    @GetMapping("/loginId/{loginId}")
+    public MemberDTO getMemberByLoginId(@PathVariable String loginId) {
+        Member memberByLoginId = memberService.findMemberByLoginId(loginId)
+                .orElseThrow(() -> new RuntimeException("해당 아이디의 회원이 없습니다."));
+        return mm.map(memberByLoginId, MemberDTO.class);
+    }
+
     /* 이름으로 회원 찾기 */
     @GetMapping("/name/{name}")
     public List<MemberDTO> getMemberByName(@PathVariable String name) {
