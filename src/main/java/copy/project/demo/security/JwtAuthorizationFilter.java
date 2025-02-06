@@ -1,13 +1,14 @@
 package copy.project.demo.security;
 
 import copy.project.demo.entity.common.JwtUtil;
-import io.jsonwebtoken.Claims;
+import copy.project.demo.entity.enums.MemberRole;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -25,20 +26,21 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         String token = extractToken(request);
 
         if (token != null && jwtUtil.validateToken(token)) {
-            Claims claims = jwtUtil.getClaims(token);
-            String username = claims.getSubject();
-            // 여기에 사용자 권한 확인 로직을 추가할 수 있습니다.
-            // 예를 들어, DB에서 해당 사용자의 권한을 확인하거나, 이미 토큰에 권한 정보가 있다면 이를 확인할 수 있습니다.
+            String loginId  = jwtUtil.extractEmail(token);
+            MemberRole role = jwtUtil.extractRole(token);
+
+            // 사용자 권한 확인 로직을 추가
+            UsernamePasswordAuthenticationToken authenticationToken =
+                  new UsernamePasswordAuthenticationToken(loginId, null, AuthorityUtils.createAuthorityList("ROLE_" + role));
 
             // 인증된 사용자를 SecurityContext에 추가
-            SecurityContextHolder.getContext().setAuthentication(
-                    new UsernamePasswordAuthenticationToken(username, null, null)
-            );
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 
         chain.doFilter(request, response);
     }
 
+    // 토큰 추출
     private String extractToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {

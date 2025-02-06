@@ -10,6 +10,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,18 +38,24 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class).build(); // AuthenticationManager 빈 설정
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+              .userDetailsService(userDetailsService)
+              .passwordEncoder(passwordEncoder())
+              .and()
+              .build();// AuthenticationManager 빈 설정
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable() // CSRF 보호를 비활성화 (필요한 경우 변경)
-                .authorizeRequests() // 새로운 방식으로 권한 설정
-                .requestMatchers("/api/auth/**").permitAll() // 인증이 필요 없는 API
-                .anyRequest().authenticated() // 나머지는 인증 필요
-                .and().addFilter(new JwtAuthenticationFilter(authenticationManager(http), jwtUtil)) // JWT 인증 필터
-                .addFilterBefore(new JwtAuthorizationFilter(jwtUtil), JwtAuthenticationFilter.class); // JWT 권한 필터
-
-        return http.build(); // 새로운 방식으로 필터 체인 빌드
+        return http
+              .csrf(AbstractHttpConfigurer::disable) // CSRF 보호 비활성화
+              .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/api/auth/**").permitAll() // 인증 없이 접근 가능
+                    .requestMatchers("/api/admin/**").hasRole("ADMIN") // 관리자만 접근 가능
+                    .anyRequest().authenticated() // 나머지는 인증 필요
+              )
+              .addFilter(new JwtAuthenticationFilter(authenticationManager(http), jwtUtil)) // JWT 인증 필터
+              .addFilterBefore(new JwtAuthorizationFilter(jwtUtil), JwtAuthenticationFilter.class) // JWT 권한 필터
+              .build(); // SecurityFilterChain 반환
     }
 }

@@ -62,6 +62,6 @@ public class AuthService {
     public Optional<String> login(String loginId, String unencryptedPW) {
         return memberRepository.findByLoginId(loginId)
                 .filter(member -> passwordEncoder.matches(unencryptedPW, member.getPassword()))
-                .map(member -> jwtUtil.generateToken(member.getLoginId())); // 로그인 성공 시 JWT 발급
+                .map(member -> jwtUtil.generateToken(member.getLoginId(), member.getRole())); // 로그인 성공 시 JWT 발급
     }
 }

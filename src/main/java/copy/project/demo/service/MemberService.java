@@ -65,8 +65,8 @@ public class MemberService {
         ));
     }
 
-    /* 회원 정보 수정 */
-    /*public void updateMember(Long id, MemberDTO updateDto) {
+    /* 회원 정보 수정 *//*
+    public void updateMember(Long id, MemberDTO updateDto) {
         memberRepository.findById(id).isPresent(member -> {
             member.setNickname(updateDto.getNickname());
             member.setPhone(updateDto.getPhone());

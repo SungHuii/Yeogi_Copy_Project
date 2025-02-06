@@ -79,7 +79,7 @@
 		</dependency>
 
 		<!-- Json Web Token (JWT) 추가 -->
-		<dependency>
+		<!--<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 			<version>0.12.3</version>
@@ -92,8 +92,31 @@
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-jackson</artifactId> <!-- JSON 처리용 -->
+			<artifactId>jjwt-jackson</artifactId> &lt;!&ndash; JSON 처리용 &ndash;&gt;
 			<version>0.12.3</version>
+			<scope>runtime</scope>
+		</dependency>-->
+
+		<!-- api 모듈 -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+
+		<!-- 구현체 (runtime에서 필요) -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- JSON 처리를 위한 Jackson 모듈 -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
 			<scope>runtime</scope>
 		</dependency>
 
