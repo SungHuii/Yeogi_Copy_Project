@@ -13,7 +13,9 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
-
+/**
+ * Created by SungHui on 2025. 2. 6.
+ */
 @Slf4j // 토큰 유효성 검사 실패 시 로그 출력용
 @Component
 public class JwtUtil {
