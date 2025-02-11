@@ -66,33 +66,5 @@ public class AuthService {
                 .map(member -> jwtUtil.generateToken(member.getLoginId(), member.getRole())); // 로그인 성공 시 JWT 발급
     }
 
-    /* 로그인 *//*
-    public MemberDTO login(String loginId, String rawPassword) {
-        Member member = memberRepository.findByLoginId(loginId)
-              .orElseThrow(() -> new RuntimeException("아이디 또는 비밀번호가 틀렸습니다."));
-
-        // ✅ 비밀번호 일치 여부 확인
-        if (!passwordEncoder.matches(rawPassword, member.getPassword())) {
-            throw new RuntimeException("아이디 또는 비밀번호가 틀렸습니다.");
-        }
-
-        // ✅ 로그인 성공 시 JWT 생성
-        String token = jwtUtil.generateToken(member.getLoginId(), member.getRole());
-
-        // ✅ 사용자 정보를 포함한 DTO 반환
-        return new MemberDTO(
-              member.getId(),
-              member.getLoginId(),
-              null, // ✅ 비밀번호 정보는 포함하지 않음
-              member.getType(),
-              member.getName(),
-              member.getNickname(),
-              member.getPhone(),
-              member.getGender(),
-              member.getBirthDate(),
-              member.getRole(),
-              token // ✅ 토큰을 DTO에 포함
-        );
-    }*/
 
 }
