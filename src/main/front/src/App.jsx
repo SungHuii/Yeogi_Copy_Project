@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
+import Header from "./components/Header/Header";
 
 function App() {
     const [hello, setHello] = useState('');
@@ -12,6 +13,7 @@ function App() {
     }, []);
     return (
         <div className="App">
+            <Header />
             백엔드 데이터 : {hello}
         </div>
     );
