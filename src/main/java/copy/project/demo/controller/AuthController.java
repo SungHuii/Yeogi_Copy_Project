@@ -20,7 +20,7 @@ import java.util.Optional;
  * Created by SungHui on 2025. 2. 2.
  */
 /* 회원가입, 로그인, 관리자 페이지 접근 API */
-@RestController // 이 클래스가 REST API 요청을 처리하는 컨트롤러임
+@RestController // 이 클래스는 REST API 요청을 처리하는 컨트롤러임
 @RequestMapping("/auth") // /auth 경로 아래에서 요청을 처리하는 컨트롤러임을 정의
 @RequiredArgsConstructor // final 필드를 매개변수로 받는 생성자를 자동 생성
 public class AuthController {
@@ -31,7 +31,7 @@ public class AuthController {
     private final AuthService authService;
     // JWT 토큰을 생성하고, 토큰에서 역할 등의 정보를 추출하는 유틸 클래스
     private final JwtUtil jwtUtil;
-
+    // 회원정보 리파지토리
     private final MemberRepository memberRepository;
 
     /* 회원가입 API */
@@ -52,12 +52,18 @@ public class AuthController {
                 .orElse(ResponseEntity.status(401).body("로그인 X -> 잘못된 이메일 혹은 비밀번호")); // 로그인 X (401 Unauthorized)
     }*/
 
-    @PostMapping("/login")
+    /* 로그인 API. JWT + 사용자 정보 반환 */
+    @PostMapping("/login") // POST /auth/login 요청을 처리하는 API
+    // 요청 파라미터로 LoginRequest DTO를 받아옴 (ID, PW)
     public ResponseEntity<MemberDTO> login(@RequestBody LoginRequest loginRequest) {
+        // 받아온 파라미터로 토큰 생성 (login 메서드)
         Optional<String> tokenOpt = authService.login(loginRequest.getLoginId(), loginRequest.getPassword());
 
+        // 토큰이 값을 가지고 있을 때
         if (tokenOpt.isPresent()) {
+            // 토큰 값의 로그인 아이디로 회원정보 조회
             Member member = memberRepository.findByLoginId(loginRequest.getLoginId()).orElseThrow();
+            // 사용자 정보를 객체로 새로 만들어서 저장
             MemberDTO responseDto = new MemberDTO(
                     member.getId(),
                     member.getLoginId(),
@@ -69,10 +75,12 @@ public class AuthController {
                     member.getGender(),
                     member.getBirthDate(),
                     member.getRole(),
-                    tokenOpt.get() // ✅ JWT 포함
+                    tokenOpt.get() // JWT 포함
             );
+            // 신규 객체와 함께 ok(200)
             return ResponseEntity.ok(responseDto);
         } else {
+            // 토큰 값이 없으면 인가되지 않은 상태 반환(401)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
@@ -91,32 +99,38 @@ public class AuthController {
             throw new RuntimeException("관리자 권한이 없음");
         }
 
-        // role이 관리자일 때 반환되는 uri)
+        // role이 관리자일 때 반환되는 uri
         return "관리자 전용 페이지 /uri/admin";
     }
 
     // JWT 유효성 확인 토큰 검증 API
-    @GetMapping("/validate")
-    public ResponseEntity<?> validateToken(@RequestParam String token) {
-        boolean isValid = jwtUtil.validateToken(token);
+    @GetMapping("/validate") // GET /auth/validate 요청을 처리하는 API
+    public ResponseEntity<?> validateToken(@RequestParam String token) { // 요청 쿼리 파라미터로 토큰을 받음
+        boolean isValid = jwtUtil.validateToken(token); // 토큰 유효성 검사로 확인
         return ResponseEntity.ok(Map.of("isValid", isValid));
+        // 결과값 JSON 형태로 응답 {"isValid": true / false}
     }
 
     /* 사용자 정보 조회 API */
-    @GetMapping("/checkUser")
+    @GetMapping("/checkUser") // GET /auth/checkUser 요청 처리 API
+    // 요청 헤더에서 Autorization 값을 받음
     public ResponseEntity<MemberDTO> getUserInfo(@RequestHeader("Authorization") String token) {
-        token = token.substring(7);
-        if(!jwtUtil.validateToken(token)) {
+        token = token.substring(7); // "Bearer " 문자열 접두 제거
+        if(!jwtUtil.validateToken(token)) { // 토큰 유효성 검사
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            // 유효하지 않은 토큰일 때 401 응답 반환
         }
 
+        // loginId 추출
         String loginId = jwtUtil.extractEmail(token);
+        // 추출한 로그인 id로 회원 정보 조회
         Member member = memberRepository.findByLoginId(loginId).orElseThrow();
 
+        // 조회한 정보로 DTO로 변환
         MemberDTO responseDto = new MemberDTO(
                 member.getId(),
                 member.getLoginId(),
-                null,
+                null, // 비밀번호 제외
                 member.getType(),
                 member.getName(),
                 member.getNickname(),
@@ -124,9 +138,9 @@ public class AuthController {
                 member.getGender(),
                 member.getBirthDate(),
                 member.getRole(),
-                null
+                null // JWT 제외
         );
-
+        // 조회한 정보를 JSON으로 응답 반환
         return ResponseEntity.ok(responseDto);
     }
 }
