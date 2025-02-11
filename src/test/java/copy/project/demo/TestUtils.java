@@ -2,6 +2,7 @@ package copy.project.demo;
 
 import copy.project.demo.entity.Member;
 import copy.project.demo.entity.enums.MemberGender;
+import copy.project.demo.entity.enums.MemberRole;
 import copy.project.demo.entity.enums.MemberType;
 
 import java.time.LocalDate;

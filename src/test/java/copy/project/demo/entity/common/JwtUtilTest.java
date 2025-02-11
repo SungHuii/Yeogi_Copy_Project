@@ -44,5 +44,6 @@ class JwtUtilTest {
 
       // JWT에서 이메일(로그인 ID) 추출 및 확인
       assertEquals(loginId, jwtUtil.extractEmail(token));
+      log.info("Extracted email: {}", jwtUtil.extractEmail(token));
    }
 }

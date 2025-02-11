@@ -57,6 +57,8 @@ public class Member extends CommonEntity { // 회원 정보
     @Enumerated(EnumType.STRING)
     private MemberRole role;
 
+
+
     public Member(Long id, MemberType type, String name, String nickname, String phone, MemberGender gender, LocalDate birthDate) {
         this.id = id;
         this.type = type;

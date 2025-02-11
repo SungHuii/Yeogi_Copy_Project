@@ -27,6 +27,7 @@ public class MemberDTO {
     private MemberGender gender;
     private LocalDate birthDate;
     private MemberRole role;
+    private String token;
 
     /* 회원정보 조회용 생성자 */
     public MemberDTO(Long id, MemberType type, String name, String nickname, String phone, MemberGender gender, LocalDate birthDate) {
