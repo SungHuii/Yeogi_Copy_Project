@@ -14,6 +14,6 @@ import java.time.LocalDate;
 public class TestUtils {
    public static Member createTestMember() {
       LocalDate localDate = LocalDate.of(1994, 10, 2);
-      return new Member(null, MemberType.EMAIL, "sunghui", "crong", "01012341234", MemberGender.M, localDate);
+      return new Member(null, "sunghui@gmail.com", null, MemberType.EMAIL, "sunghui", "crong", "01012341234", MemberGender.M, localDate, MemberRole.USER);
    }
 }

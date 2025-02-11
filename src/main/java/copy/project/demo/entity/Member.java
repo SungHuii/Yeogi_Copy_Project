@@ -57,9 +57,22 @@ public class Member extends CommonEntity { // 회원 정보
     @Enumerated(EnumType.STRING)
     private MemberRole role;
 
+    public Member copy(String nickname, String phone) {
+        return new Member(
+                this.id,
+                this.loginId,
+                this.password,
+                this.type,
+                this.name,
+                nickname,
+                phone,
+                this.gender,
+                this.birthDate,
+                this.role
+        );
+    }
 
-
-    public Member(Long id, MemberType type, String name, String nickname, String phone, MemberGender gender, LocalDate birthDate) {
+    public Member(Long id, MemberType type, String name, String nickname, String phone, MemberGender gender, LocalDate birthDate, MemberRole role) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -67,6 +80,7 @@ public class Member extends CommonEntity { // 회원 정보
         this.phone = phone;
         this.gender = gender;
         this.birthDate = birthDate;
+        this.role = role;
     }
 
     public Member(Long id, String loginId, String password, MemberType type, String name, String nickname, String phone, MemberGender gender, LocalDate birthDate, MemberRole role) {
@@ -81,6 +95,7 @@ public class Member extends CommonEntity { // 회원 정보
         this.birthDate = birthDate;
         this.role = role;
     }
+
 
     // toString`
     @Override

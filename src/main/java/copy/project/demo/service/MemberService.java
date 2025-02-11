@@ -3,6 +3,7 @@ package copy.project.demo.service;
 import copy.project.demo.dto.MemberDTO;
 import copy.project.demo.entity.Member;
 import copy.project.demo.repository.MemberRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,13 +66,19 @@ public class MemberService {
         ));
     }
 
-    /* 회원 정보 수정 *//*
+    /* 회원 정보 수정 */
     public void updateMember(Long id, MemberDTO updateDto) {
-        memberRepository.findById(id).isPresent(member -> {
-            member.setNickname(updateDto.getNickname());
-            member.setPhone(updateDto.getPhone());
-        });
-    }*/
+        // 아이디로 사용자 정보 가져옴
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("회원이 존재하지 않습니다."));
+        
+        // 새로 변경된 닉네임과 휴대폰 번호 저장
+        Member updateMember = member.copy(updateDto.getNickname(), updateDto.getPhone());
+        
+        // 새로 변경된 멤버를 저장
+        memberRepository.save(updateMember);
+
+    }
 
     /* 회원 탈퇴 */
     public void deleteMember(Long id) {

@@ -1,6 +1,5 @@
 package copy.project.demo.entity.common;
 
-import copy.project.demo.Main;
 import copy.project.demo.entity.enums.MemberRole;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Created by SungHui on 2025. 2. 6.
  */
 @Slf4j
-@SpringBootTest(classes = Main.class)
+@SpringBootTest
 @TestPropertySource(properties = "jwt.secret=eW91ci12ZXJ5LXNlY3VyZS1zZWNyZXQta2V5LXlvdXItdmVyeS1zZWN1cmUtc2VjcmV0LWtleQ==")
 class JwtUtilTest {
 
