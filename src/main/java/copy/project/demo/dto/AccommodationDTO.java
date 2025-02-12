@@ -1,6 +1,5 @@
 package copy.project.demo.dto;
 
-import copy.project.demo.entity.AccommodationRoom;
 import copy.project.demo.entity.enums.AccommodationType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,19 +12,20 @@ import java.util.List;
  * Created by SungHui on 2025. 1. 24.
  */
 
+/* 숙소 DTO */
 @Getter
 @RequiredArgsConstructor
 public class AccommodationDTO {
 
-    private final Long id;
-    private final String name;
-    private final String description;
-    private final AccommodationType type;
-    private final String address;
-    private final BigDecimal latitude;
-    private final BigDecimal longitude;
-    private final String imageUrl;
-    private final List<AccommodationRoomDTO> roomList;
+    private final Long id; // 식별자 값
+    private final String name; // 숙소명
+    private final String description; // 숙소 설명
+    private final AccommodationType type; // 숙소 타입
+    private final String address; // 숙소 주소
+    private final BigDecimal latitude; // 위도
+    private final BigDecimal longitude; // 경도
+    private final String imageUrl; // 숙소 이미지
+    private final List<AccommodationRoomDTO> roomList; // 숙소 방 리스트
 
     // 빈 리스트로 초기화하는 추가 생성자
     public AccommodationDTO(Long id, String name, String description, AccommodationType type,

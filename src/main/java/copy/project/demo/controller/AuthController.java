@@ -1,7 +1,7 @@
 package copy.project.demo.controller;
 
 
-import copy.project.demo.dto.LoginRequest;
+import copy.project.demo.dto.LoginRequestDTO;
 import copy.project.demo.dto.MemberDTO;
 import copy.project.demo.entity.Member;
 import copy.project.demo.entity.common.JwtUtil;
@@ -55,7 +55,7 @@ public class AuthController {
     /* 로그인 API. JWT + 사용자 정보 반환 */
     @PostMapping("/login") // POST /auth/login 요청을 처리하는 API
     // 요청 파라미터로 LoginRequest DTO를 받아옴 (ID, PW)
-    public ResponseEntity<MemberDTO> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<MemberDTO> login(@RequestBody LoginRequestDTO loginRequest) {
         // 받아온 파라미터로 토큰 생성 (login 메서드)
         Optional<String> tokenOpt = authService.login(loginRequest.getLoginId(), loginRequest.getPassword());
 

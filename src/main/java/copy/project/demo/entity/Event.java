@@ -11,28 +11,35 @@ import java.time.LocalDateTime;
  * Created by SungHui on 2025. 1. 22.
  */
 
+/* 이벤트 엔티티 */
 @Entity
 @Getter
 @NoArgsConstructor
 public class Event extends CommonEntity {
 
+    // 이벤트 식별자
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    // 이벤트 명
     @Column(name = "title", nullable = false)
     private String title;
 
+    // 이벤트 설명
     @Lob
     @Column(name = "description")
     private String description;
 
+    // 이벤트 시작 날짜
     @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;
 
+    // 이벤트 종료 날짜
     @Column(name = "end_date", nullable = false)
     private LocalDateTime endDate;
 
+    // 이벤트 이미지
     @Lob
     @Column(name = "image_url")
     private String imageUrl;

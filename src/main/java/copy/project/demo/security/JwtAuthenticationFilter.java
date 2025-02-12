@@ -21,15 +21,10 @@ import java.io.IOException;
  */
 /* 클라이언트가 API 요청 시 JWT를 포함해서 보낼 때 인증을 수행하기 위한 필터 */
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter /* 요청당 한번만 실행하는 필터 */ {
 
-    private final JwtUtil jwtUtil;
-    private final AuthenticationManager authenticationManager;
-
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
-        this.authenticationManager = authenticationManager;
-        this.jwtUtil = jwtUtil;
-    }
+    private final JwtUtil jwtUtil; // JWT 토큰을 생성, 검증하고 사용자 정보를 추출하는 유틸
+    private final AuthenticationManager authenticationManager; // Spring Security에서 사용자 인증을 처리하는 객체
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws

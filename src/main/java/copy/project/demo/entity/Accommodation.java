@@ -15,28 +15,33 @@ import java.util.List;
  */
 
 /* 연관 관계
-* AccommodationRoom
+*  AccommodationRoom 1 : N Accommodation
 * */
 @Entity
 @Getter
 @NoArgsConstructor
 public class Accommodation extends CommonEntity { // 숙소 정보
 
+    // 숙소 식별자 값
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    // 숙소명
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Lob
+    // 숙소 설명
+    @Lob // Large Object
     @Column(name = "description")
     private String description;
 
+    // 숙소 타입
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
-    private AccommodationType type;
+    private AccommodationType type; // 호텔, 모텔, 펜션, 게스트하우스
 
+    // 숙소 주소
     @Column(name = "address", nullable = false)
     private String address;
 
@@ -46,11 +51,13 @@ public class Accommodation extends CommonEntity { // 숙소 정보
     @Column(name = "longitude", nullable = false)
     private BigDecimal longitude; // 경도
 
+    // 숙소 이미지
     @Lob
     @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "accommodation")
+    // 숙소 방 정보
+    @OneToMany(mappedBy = "accommodation") // 연관 관계의 주인 X
     private List<AccommodationRoom> roomList = new ArrayList<>();
 
     @Override
