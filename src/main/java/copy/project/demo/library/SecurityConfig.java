@@ -61,7 +61,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth // security 처리에 HttpServletRequest 사용
                         .requestMatchers("/members/**").permitAll() // /members/** 경로는 인증 없이 접근 가능
                         .requestMatchers("/members/admin/**").hasRole("ADMIN") // 관리자만 접근 가능한 경로
-                        .anyRequest().authenticated()); // 나머지는 인증된 사용자만 접근 가능
+                        .anyRequest().permitAll()); // 나머지는 인증 없이 접근 가능
 
         return http.build(); // SecurityFilterChain 반환
     }
