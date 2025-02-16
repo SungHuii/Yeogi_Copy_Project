@@ -2,7 +2,6 @@ package copy.project.demo.library;
 
 import copy.project.demo.entity.common.JwtUtil;
 import copy.project.demo.security.JwtAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,11 +22,16 @@ import org.springframework.security.web.SecurityFilterChain;
 * */
 @Configuration // 설정 파일 클래스 어노테이션
 @EnableWebSecurity // 웹 보안(Spring Security) 활성화 어노테이션
-@RequiredArgsConstructor // final 필드 생성자 자동 생성가능
+/*@RequiredArgsConstructor // final 필드 생성자 자동 생성가능*/
 public class SecurityConfig {
 
     private final JwtUtil jwtUtil; // JWT 생성, 검증 담당 유틸
     private final UserDetailsService userDetailsService; // 사용자 정보 서비스. DB에서 사용자 정보를 가져옴
+
+    public SecurityConfig(JwtUtil jwtUtil, UserDetailsService userDetailsService) {
+        this.jwtUtil = jwtUtil;
+        this.userDetailsService = userDetailsService;
+    }
 
     // passwordEncoder를 사용하면 비밀번호를 암호화해서 저장 가능
     // 회원가입 시 비밀번호를 암호화해서 DB 저장
