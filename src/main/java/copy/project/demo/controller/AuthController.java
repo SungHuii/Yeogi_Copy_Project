@@ -42,16 +42,6 @@ public class AuthController {
         return ResponseEntity.ok(regiMember); // HTTP 응답 상태 200(OK)와 함께 회원 정보를 반환
     }
 
-    /* 로그인 API
-    *  JWT 반환 */
-    /*@PostMapping("/login") // POST /auth/login 요청을 처리하는 API
-    // 요청 파라미터에서 loginId와 pw를 받아옴
-    public ResponseEntity<String> login(@RequestParam String loginId, @RequestParam String pw) {
-        Optional<String> token = authService.login(loginId, pw); // 로그인 검증 후, 성공하면 JWT 토큰 반환
-        return token.map(user -> ResponseEntity.ok("로그인 ok")) // 로그인 ok (200)
-                .orElse(ResponseEntity.status(401).body("로그인 X -> 잘못된 이메일 혹은 비밀번호")); // 로그인 X (401 Unauthorized)
-    }*/
-
     /* 로그인 API. JWT + 사용자 정보 반환 */
     @PostMapping("/login") // POST /auth/login 요청을 처리하는 API
     // 요청 파라미터로 LoginRequest DTO를 받아옴 (ID, PW)

@@ -1,5 +1,6 @@
 package copy.project.demo.entity;
 
+import copy.project.demo.dto.AccommodationDTO;
 import copy.project.demo.entity.common.CommonEntity;
 import copy.project.demo.entity.enums.AccommodationType;
 import jakarta.persistence.*;
@@ -73,5 +74,17 @@ public class Accommodation extends CommonEntity { // 숙소 정보
                 ", imageUrl='" + imageUrl + '\'' +
                 ", roomList=" + roomList +
                 '}';
+    }
+
+    public Accommodation copy(AccommodationDTO dto) {
+        this.name = dto.getName();
+        this.description = dto.getDescription();
+        this.type = dto.getType();
+        this.address = dto.getAddress();
+        this.latitude = dto.getLatitude();
+        this.longitude = dto.getLongitude();
+        this.imageUrl = dto.getImageUrl();
+
+        return this;
     }
 }

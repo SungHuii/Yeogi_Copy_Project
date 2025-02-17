@@ -27,6 +27,19 @@ public class AccommodationDTO {
     private final String imageUrl; // 숙소 이미지
     private final List<AccommodationRoomDTO> roomList; // 숙소 방 리스트
 
+    // Jackson의 역직렬화 과정에 필요한 기본 생성자
+    public AccommodationDTO() {
+        this.id = null;
+        this.name = null;
+        this.description = null;
+        this.type = null;
+        this.address = null;
+        this.latitude = null;
+        this.longitude = null;
+        this.imageUrl = null;
+        this.roomList = new ArrayList<>();
+    }
+
     // 빈 리스트로 초기화하는 추가 생성자
     public AccommodationDTO(Long id, String name, String description, AccommodationType type,
                             String address, BigDecimal latitude, BigDecimal longitude,

@@ -28,8 +28,10 @@ public class MemberController {
     /* ModelMapper를 이용해 MemberDTO를 가져옴
     * 생성한 회원 정보를 DB에 저장하는 API */
     @PostMapping // POST /members 요청 처리
-    // @RequestBody로 요청의 JSON 데이터를 Member 객체로 변환
-    public MemberDTO createMember(@RequestBody Member member){
+    // @RequestBody로 요청의 JSON 데이터를 MemberDTO 객체로 변환
+    public MemberDTO createMember(@RequestBody MemberDTO memberDTO){
+        // MemberDTO를 Member 엔티티로 변환
+        Member member = mm.map(memberDTO, Member.class);
         // 회원 정보 저장
         Member savedMember = memberService.saveMember(member);
         // 저장된 Member 엔티티를 MemberDTO로 변환 후 반환
@@ -37,15 +39,7 @@ public class MemberController {
     }
 
     /* 식별 값을 받아와서 회원 찾기*/
-    /*@GetMapping("/id/{id}") // GET /members/id/{id}
-    public MemberDTO getMemberById(@PathVariable Long id){ // URL에서 id 값을 가져옴
-        // id로 회원 조회. 회원이 없을 시 예외 발생
-        Member memberById = memberService.findMemberById(id).
-                orElseThrow(() -> new RuntimeException("해당 회원이 없습니다."));
-        // 조회된 회원을 DTO로 변환 후 반환
-        return mm.map(memberById, MemberDTO.class);
-    }*/
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<MemberDTO> getMemberById(@PathVariable Long id) {
         Member memberById = memberService.findMemberById(id)
                 .orElseThrow(() -> new RuntimeException("해당 회원이 없습니다."));
@@ -56,7 +50,7 @@ public class MemberController {
 
 
     /* 이메일(loginId)로 회원 찾기*/
-    @GetMapping("/loginId/{loginId}") // GET /members/loginId/{loginId}
+    @GetMapping("/{loginId}") // GET /members/{loginId}
     public MemberDTO getMemberByLoginId(@PathVariable String loginId) { // URL에서 loginId 값 가져옴
         // loginId로 회원 조회. 조회 안될 시 예외 발생
         Member memberByLoginId = memberService.findMemberByLoginId(loginId)
@@ -66,7 +60,7 @@ public class MemberController {
     }
 
     /* 이름으로 회원 찾기 */
-    @GetMapping("/name/{name}") // GET /members/name/{name}
+    @GetMapping("/{name}") // GET /members/{name}
     public List<MemberDTO> getMemberByName(@PathVariable String name) { // URL에서 name 값 가져옴
         // name 값으로 회원 리스트 조회
         List<Member> memberByName = memberService.findMemberByName(name);
@@ -82,7 +76,7 @@ public class MemberController {
     }
 
     /* 닉네임으로 회원 찾기 */
-    @GetMapping("/nickname/{nickname}") // GET /members/nickname/{nickname}
+    @GetMapping("/{nickname}") // GET /members/{nickname}
     public MemberDTO getMemberByNickname(@PathVariable String nickname) { // URL에서 nickname 값을 가져옴
         // nickname 값으로 회원 조회. 없으면 예외 발생
         Member memberByNickname = memberService.findMemberByNickname(nickname)
@@ -92,7 +86,7 @@ public class MemberController {
     }
 
     /* 휴대폰 번호로 회원 찾기 */
-    @GetMapping("/phone/{phone}") // GET /members/phone/{phone}
+    @GetMapping("/{phone}") // GET /members/{phone}
     public MemberDTO getMemberByPhone(@PathVariable String phone) { // URL에서 phone 값을 가져옴
         // phone 값으로 회원 조회. 없으면 예외 발생
         Member memberByPhone = memberService.findMemberByPhone(phone)

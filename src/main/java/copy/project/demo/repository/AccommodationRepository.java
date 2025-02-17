@@ -4,7 +4,7 @@ import copy.project.demo.entity.Accommodation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 /**
  * Created by SungHui on 2025. 1. 24.
  */
@@ -14,6 +14,7 @@ import java.util.Optional;
 @Repository
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
 
-    // 이름을 기준으로 숙소를 조회하는 메서드
-    Optional<Accommodation> findByName(String name);
+    // 이름을 기준으로 숙소들을 조회하는 메서드. 이름은 중복될 수 있으므로 List로 반환
+    List<Accommodation> findByName(String name);
+
 }

@@ -18,7 +18,7 @@ const MainPage = () => {
             });
 
         // 사용자 정보 API 요청 (id를 경로 변수로 전달)
-        axios.get(`http://localhost:8080/members/id/1`)
+        axios.get(`http://localhost:8080/members/1`)
             .then((res) => {
                 console.log(res);
                 setUser(res.data);
