@@ -1,5 +1,5 @@
 import "react";
-import Header from "../components/Header/Header";
+import Header from "../components/Common/Header";
 import InfoItem from "../components/profile/InfoItem";
 
 const ProfilePage = () => {

@@ -1,5 +1,5 @@
 import "react";
-import Header from "../components/Header/Header";
+import Header from "../components/Common/Header";
 
 const LoginPage = () => {
     return (
