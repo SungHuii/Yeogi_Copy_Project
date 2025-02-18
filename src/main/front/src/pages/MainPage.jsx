@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import Header from "../components/Header/Header";
+import { useEffect, useState } from "react";
+import Header from "../components/Common/Header";
 import axios from "axios";
 
 const MainPage = () => {
@@ -18,7 +18,7 @@ const MainPage = () => {
             });
 
         // 사용자 정보 API 요청 (id를 경로 변수로 전달)
-        axios.get(`http://localhost:8080/members/id/1`)
+        axios.get(`http://localhost:8080/members/id/` + id)
             .then((res) => {
                 console.log(res);
                 setUser(res.data);
