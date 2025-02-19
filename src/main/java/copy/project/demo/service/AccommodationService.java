@@ -2,8 +2,11 @@ package copy.project.demo.service;
 
 import copy.project.demo.dto.AccommodationDTO;
 import copy.project.demo.entity.Accommodation;
+import copy.project.demo.entity.enums.AccommodationType;
 import copy.project.demo.repository.AccommodationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,5 +61,18 @@ public class AccommodationService {
         accommodationRepository.delete(accommodation);
 
         return true; // 삭제되면 true 반환
+    }
+
+    // 숙소 검색 (숙소명, 숙소타입, 주소)
+    public Page<Accommodation> searchAccommodations(String name, String type, String address, Pageable pageable) {
+        name = (name == null) ? "" : name;
+        address = (address == null) ? "" : address;
+
+        if (type == null || type.isEmpty() || type.equalsIgnoreCase("ALL")) {
+            return accommodationRepository.findByNameContainingAndAddressContaining(name, address, pageable);
+        } else {
+            AccommodationType accommodationType = AccommodationType.valueOf(type.toUpperCase());
+            return accommodationRepository.findByNameContainingAndTypeAndAddressContaining(name, accommodationType, address, pageable);
+        }
     }
 }
