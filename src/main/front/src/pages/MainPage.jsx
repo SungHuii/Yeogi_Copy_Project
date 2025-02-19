@@ -18,7 +18,7 @@ const MainPage = () => {
             });
 
         // 사용자 정보 API 요청 (id를 경로 변수로 전달)
-        axios.get(`http://localhost:8080/members/1`)
+        axios.get(`http://localhost:8080/members/id/${id}`)
             .then((res) => {
                 console.log(res);
                 setUser(res.data);
@@ -39,8 +39,8 @@ const MainPage = () => {
                 {user ? (
                     <div>
                         <p>사용자 이름: {user.name}</p>
-                        <p>이메일: {user.email}</p>
-                        <p>전화번호: {user.phoneNumber}</p>
+                        <p>이메일: {user.loginId}</p>
+                        <p>전화번호: {user.phone}</p>
                     </div>
                 ) : (
                     <p>사용자 정보를 불러오는 중...</p>

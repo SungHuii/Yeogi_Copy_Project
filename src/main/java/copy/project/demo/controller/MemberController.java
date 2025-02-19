@@ -39,7 +39,7 @@ public class MemberController {
     }
 
     /* 식별 값을 받아와서 회원 찾기*/
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}") // GET /members/id/{id}
     public ResponseEntity<MemberDTO> getMemberById(@PathVariable Long id) {
         Member memberById = memberService.findMemberById(id)
                 .orElseThrow(() -> new RuntimeException("해당 회원이 없습니다."));
@@ -50,7 +50,7 @@ public class MemberController {
 
 
     /* 이메일(loginId)로 회원 찾기*/
-    @GetMapping("/{loginId}") // GET /members/{loginId}
+    @GetMapping("/loginId/{loginId}") // GET /members/loginId/{loginId}
     public MemberDTO getMemberByLoginId(@PathVariable String loginId) { // URL에서 loginId 값 가져옴
         // loginId로 회원 조회. 조회 안될 시 예외 발생
         Member memberByLoginId = memberService.findMemberByLoginId(loginId)
@@ -60,7 +60,7 @@ public class MemberController {
     }
 
     /* 이름으로 회원 찾기 */
-    @GetMapping("/{name}") // GET /members/{name}
+    @GetMapping("/name/{name}") // GET /members/name/{name}
     public List<MemberDTO> getMemberByName(@PathVariable String name) { // URL에서 name 값 가져옴
         // name 값으로 회원 리스트 조회
         List<Member> memberByName = memberService.findMemberByName(name);
@@ -76,7 +76,7 @@ public class MemberController {
     }
 
     /* 닉네임으로 회원 찾기 */
-    @GetMapping("/{nickname}") // GET /members/{nickname}
+    @GetMapping("/nickname/{nickname}") // GET /members/nickname/{nickname}
     public MemberDTO getMemberByNickname(@PathVariable String nickname) { // URL에서 nickname 값을 가져옴
         // nickname 값으로 회원 조회. 없으면 예외 발생
         Member memberByNickname = memberService.findMemberByNickname(nickname)
@@ -86,7 +86,7 @@ public class MemberController {
     }
 
     /* 휴대폰 번호로 회원 찾기 */
-    @GetMapping("/{phone}") // GET /members/{phone}
+    @GetMapping("/phone/{phone}") // GET /members/phone/{phone}
     public MemberDTO getMemberByPhone(@PathVariable String phone) { // URL에서 phone 값을 가져옴
         // phone 값으로 회원 조회. 없으면 예외 발생
         Member memberByPhone = memberService.findMemberByPhone(phone)
