@@ -5,7 +5,7 @@ import copy.project.demo.entity.common.CommonEntity;
 import copy.project.demo.entity.enums.AccommodationType;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -20,46 +20,46 @@ import java.util.List;
 * */
 @Entity
 @Getter
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class Accommodation extends CommonEntity { // 숙소 정보
 
     // 숙소 식별자 값
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private final Long id;
 
     // 숙소명
     @Column(name = "name", nullable = false)
-    private String name;
+    private final String name;
 
     // 숙소 설명
     @Lob // Large Object
     @Column(name = "description")
-    private String description;
+    private final String description;
 
     // 숙소 타입
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
-    private AccommodationType type; // 호텔, 모텔, 펜션, 게스트하우스
+    private final AccommodationType type; // 호텔, 모텔, 펜션, 게스트하우스
 
     // 숙소 주소
     @Column(name = "address", nullable = false)
-    private String address;
+    private final String address;
 
     @Column(name = "latitude", nullable = false)
-    private BigDecimal latitude; // 위도
+    private final BigDecimal latitude; // 위도
 
     @Column(name = "longitude", nullable = false)
-    private BigDecimal longitude; // 경도
+    private final BigDecimal longitude; // 경도
 
     // 숙소 이미지
     @Lob
     @Column(name = "image_url")
-    private String imageUrl;
+    private final String imageUrl;
 
     // 숙소 방 정보
     @OneToMany(mappedBy = "accommodation") // 연관 관계의 주인 X
-    private List<AccommodationRoom> roomList = new ArrayList<>();
+    private final List<AccommodationRoom> roomList;
 
     @Override
     public String toString() {
@@ -76,15 +76,18 @@ public class Accommodation extends CommonEntity { // 숙소 정보
                 '}';
     }
 
+    // 숙소 정보 수정용
     public Accommodation copy(AccommodationDTO dto) {
-        this.name = dto.getName();
-        this.description = dto.getDescription();
-        this.type = dto.getType();
-        this.address = dto.getAddress();
-        this.latitude = dto.getLatitude();
-        this.longitude = dto.getLongitude();
-        this.imageUrl = dto.getImageUrl();
-
-        return this;
+        return new Accommodation(
+                this.id,
+                dto.getName(),
+                dto.getDescription(),
+                dto.getType(),
+                dto.getAddress(),
+                dto.getLatitude(),
+                dto.getLongitude(),
+                dto.getImageUrl(),
+                new ArrayList<AccommodationRoom>()
+        );
     }
 }

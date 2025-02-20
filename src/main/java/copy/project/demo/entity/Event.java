@@ -3,7 +3,7 @@ package copy.project.demo.entity;
 import copy.project.demo.entity.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -14,35 +14,35 @@ import java.time.LocalDateTime;
 /* 이벤트 엔티티 */
 @Entity
 @Getter
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class Event extends CommonEntity {
 
     // 이벤트 식별자
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private final Long id;
 
     // 이벤트 명
     @Column(name = "title", nullable = false)
-    private String title;
+    private final String title;
 
     // 이벤트 설명
     @Lob
     @Column(name = "description")
-    private String description;
+    private final String description;
 
     // 이벤트 시작 날짜
     @Column(name = "start_date", nullable = false)
-    private LocalDateTime startDate;
+    private final LocalDateTime startDate;
 
     // 이벤트 종료 날짜
     @Column(name = "end_date", nullable = false)
-    private LocalDateTime endDate;
+    private final LocalDateTime endDate;
 
     // 이벤트 이미지
     @Lob
     @Column(name = "image_url")
-    private String imageUrl;
+    private final String imageUrl;
 
     @Override
     public String toString() {

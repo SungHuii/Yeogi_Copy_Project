@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Created by SungHui on 2025. 2. 17.
  */
 /* 숙소 관련 요청 처리 컨트롤러 */
-@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "http://localhost:5173")
 @RestController // REST API 컨트롤러로 사용
 @RequestMapping("/accommodation") // 숙소 관련 요청 시작 URL
 @RequiredArgsConstructor // 생성자 자동 주입

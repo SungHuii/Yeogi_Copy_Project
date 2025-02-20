@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * Created by SungHui on 2025. 1. 24.
  */
-@CrossOrigin(origins = "http://localhost:5173") // CORS 정책을 해결하기 위해 추가. 5173 포트에서 실행 중인 클라이언트에서 요청 허용
+// @CrossOrigin(origins = "http://localhost:5173") // CORS 정책을 해결하기 위해 추가. 5173 포트에서 실행 중인 클라이언트에서 요청 허용
 @RestController // REST API 컨트롤러.
 @RequestMapping("/members") // /members 경로를 기본 URL로 설정. 이 컨트롤러의 모든 엔드포인트는 /members 하위에 위치.
 @RequiredArgsConstructor // final이 붙은 필드의 생성자를 자동 생성. 의존성을 주입받음
