@@ -22,4 +22,5 @@ button svg{fill: #333;}
 /* header */
 .header{height: 56px; background: #fff;}
 .side-bar-wrapper{position: fixed; top:0; right: 0; display: flex; justify-content: flex-end; width: 100%; height: 100%; color: #333; background-color: rgba(0, 0, 0, 0.48);}
-.side-bar{flex: 0 1 520px; display: flex; background-color: #fff;}
+.side-bar{flex: 0 1 520px; display: flex; flex-direction: column; background-color: #fff;}
+.side-bar__action-bar{display: flex; align-items: center; height: 56px; padding: 0 20px;}
