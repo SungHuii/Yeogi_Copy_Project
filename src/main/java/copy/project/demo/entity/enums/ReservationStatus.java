@@ -6,5 +6,5 @@ package copy.project.demo.entity.enums;
 
 /* 예약상태 enum. 보류, 확정, 취소 */
 public enum ReservationStatus {
-    PENDING, CONFIRMED, CANCELLED
+    PENDING, CONFIRMED, CANCELED
 }

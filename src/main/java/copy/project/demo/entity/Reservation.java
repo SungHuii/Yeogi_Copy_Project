@@ -74,4 +74,6 @@ public class Reservation extends CommonEntity {
                 ", status=" + status +
                 '}';
     }
+
+
 }
