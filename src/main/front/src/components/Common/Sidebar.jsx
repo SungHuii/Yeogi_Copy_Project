@@ -1,5 +1,7 @@
 import 'react';
 import MenuItems from './MenuItems';
+import { useNavigate } from 'react-router-dom';
+import BtnLogin from './BtnLogin';
 
 // sihong 20250210 - 사이드바 메뉴 컴포넌트 추가
 const Sidebar = ({ onClose }) => {
@@ -20,17 +22,29 @@ const Sidebar = ({ onClose }) => {
         {id:"3", name:"고객센터"},
     ]
 
+    //페이지 라우팅을 위해 useNavigate 선언
+    const navigate = useNavigate();
+
+    //로그인 페이지 라우팅
+    const goLogin = () =>{
+        navigate("/SignIn");
+    }
+
     return (
         <aside className="side-bar-wrapper">
             <div className="side-bar">
                 <section className="side-bar__action-bar">
-                    <button onClick={onClose}>X 닫기</button>
+                    <button onClick={onClose}>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="icn-close">
+                            <path d="M10 8.586l5.657-5.657 1.414 1.414L11.414 10l5.657 5.657-1.414 1.414L10 11.414l-5.657 5.657-1.414-1.414L8.586 10 2.929 4.343 4.343 2.93 10 8.586z" fill="current"></path>
+                        </svg>
+                    </button>
                 </section>
                 <section className="side-bar__contents">
                     {/* 이미지 영역 */}
                     <div></div>
                     {/* 회원가입 / 로그인 버튼 */}
-                    <div></div>
+                    <BtnLogin onClick={goLogin} />
                     {/* 메뉴 리스트 */}
                     <div className="menu-group-wrapper">
                         <span>모든 여행</span>
