@@ -1,10 +1,8 @@
 package copy.project.demo.controller;
 
 import copy.project.demo.dto.ReservationDTO;
-import copy.project.demo.entity.Reservation;
 import copy.project.demo.service.ReservationService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,17 +20,13 @@ public class ReservationController {
 
     // 예약 정보 관련 비즈니스 로직 처리 서비스 주입
     private final ReservationService reservationService;
-    // 예약 정보 DTO로 변환하는데 사용
-    private final ModelMapper mm;
 
     // 예약 정보 생성 API
     @PostMapping
     public ResponseEntity<ReservationDTO> createReservation(@RequestBody ReservationDTO reservationDTO) {
-        // DTO -> 엔티티로 변환
-        Reservation reservation = mm.map(reservationDTO, Reservation.class);
 
         ReservationDTO createdReservation = reservationService.createReservation(reservationDTO);
-        return ResponseEntity.ok(mm.map(createdReservation, ReservationDTO.class));
+        return ResponseEntity.ok(createdReservation);
     }
 
     @GetMapping
@@ -43,13 +37,13 @@ public class ReservationController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ReservationDTO> getReservationById(@PathVariable Long id) {
-        Optional<ReservationDTO> reservation = Optional.ofNullable(reservationService.findReservationById(id));
+        Optional<ReservationDTO> reservation = reservationService.findReservationById(id);
         return reservation.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> cancelReservation(@PathVariable Long id) {
-        reservationService.cancelReservation(id);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<ReservationDTO> cancelReservation(@PathVariable Long id) {
+        ReservationDTO canceledReservation = reservationService.cancelReservation(id);
+        return ResponseEntity.ok(canceledReservation);
     }
 }

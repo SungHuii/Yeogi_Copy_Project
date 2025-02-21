@@ -1,11 +1,9 @@
 package copy.project.demo.controller;
 
 import copy.project.demo.dto.AccommodationDTO;
-import copy.project.demo.entity.Accommodation;
 import copy.project.demo.entity.enums.AccommodationType;
 import copy.project.demo.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
  * Created by SungHui on 2025. 2. 17.
@@ -27,53 +25,51 @@ public class AccommodationController {
 
     // 숙소 관련 비즈니스 로직 처리 서비스 주입
     private final AccommodationService accommodationService;
-    // Accommodation 엔티티를 AccommodationDTO로 변환하는데 사용
-    private final ModelMapper mm;
 
     // 숙소 정보 등록 메서드
     @PostMapping // POST 요청 처리
     public ResponseEntity<AccommodationDTO> register(@RequestBody AccommodationDTO accommodationDTO) {
-        // DTO -> 엔티티로 변환
-        Accommodation accommodation = mm.map(accommodationDTO, Accommodation.class);
         // 숙소 정보 등록
-        Accommodation savedAccommodation = accommodationService.registerAccommodation(accommodation);
-        // 엔티티 -> DTO로 변환 후 ok(200) 반환
-        return ResponseEntity.ok(mm.map(savedAccommodation, AccommodationDTO.class));
+        AccommodationDTO savedAccommodation = accommodationService.registerAccommodation(accommodationDTO);
+        // 등록된 숙소 정보 반환
+        return ResponseEntity.ok(savedAccommodation);
     }
 
     // 모든 숙소 목록 조회 메서드
     @GetMapping // GET /accommodation 요청 처리
     public ResponseEntity<List<AccommodationDTO>> getAccommodationList() {
         // 숙소 목록 조회
-        List<Accommodation> accommodationList = accommodationService.getAccommodationList();
+        List<AccommodationDTO> accommodationList = accommodationService.getAccommodationList();
+        // 숙소 목록 반환
+        return ResponseEntity.ok(accommodationList);
 
-        // 엔티티 -> DTO로 변환
-        List<AccommodationDTO> accommodationDTOS = accommodationList.stream()
-                .map(accommodation -> mm.map(accommodation, AccommodationDTO.class))
-                .collect(Collectors.toList());
+    }
 
-        // DTO 목록 반환
-        return ResponseEntity.ok(accommodationDTOS);
-
+    // 숙소 이름으로 조회 메서드
+    @GetMapping("/name/{name}") // GET /accommodation/name/{name} 요청 처리
+    public ResponseEntity<List<AccommodationDTO>> getAccommodationByName(@PathVariable String name) {
+        // 숙소 이름으로 조회
+        List<AccommodationDTO> accommodations = accommodationService.getAccommodationByName(name);
+        // 숙소 목록 반환
+        return ResponseEntity.ok(accommodations);
     }
 
     // 숙소 상세 조회 메서드
     @GetMapping("/{id}") // GET /accommodation/{id} 요청 처리.
     public ResponseEntity<AccommodationDTO> getAccommodationById(@PathVariable Long id) {
         // id로 숙소 조회
-        Accommodation accommodation = accommodationService.getAccommodationById(id);
-        // 엔티티 -> DTO로 변환 후 반환
-        return ResponseEntity.ok(mm.map(accommodation, AccommodationDTO.class));
+        Optional<AccommodationDTO> accommodation = accommodationService.getAccommodationById(id);
+        // 숙소가 존재하면 200 반환, 없으면 404 반환
+        return accommodation.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // 숙소 정보 수정 메서드
     @PutMapping("/{id}") // PUT /accommodation/{id} - 숙소 정보 수정
     public ResponseEntity<AccommodationDTO> updateAccommodation(@PathVariable Long id, @RequestBody AccommodationDTO accommodationDTO) {
-        Accommodation updatedAccommodation = accommodationService.updateAccommodation(id, accommodationDTO);
-        if (updatedAccommodation == null) {
-            return ResponseEntity.notFound().build(); // 숙소를 찾을 수 없으면 404 반환
-        }
-        return ResponseEntity.ok(mm.map(updatedAccommodation, AccommodationDTO.class));
+        // 숙소 정보 수정
+        AccommodationDTO updatedAccommodation = accommodationService.updateAccommodation(id, accommodationDTO);
+        // 수정된 숙소 정보 반환
+        return ResponseEntity.ok(updatedAccommodation);
     }
 
     // 숙소 정보 삭제 메서드
@@ -93,7 +89,7 @@ public class AccommodationController {
         // 숙소 타입 목록
         List<String> types = Arrays.stream(AccommodationType.values())
                 .map(Enum::name)
-                .collect(Collectors.toList());
+                .toList();
         // 타입 목록 반환
         return ResponseEntity.ok(types);
     }
@@ -108,11 +104,9 @@ public class AccommodationController {
             @RequestParam(defaultValue = "10") int size) {
 
         // 숙소 검색
-        Page<Accommodation> accommodations = accommodationService.searchAccommodations(name, type, address, PageRequest.of(page, size));
-        // 엔티티를 DTO로 변환
-        Page<AccommodationDTO> dtoPage = accommodations.map(accommodation -> mm.map(accommodation, AccommodationDTO.class));
+        Page<AccommodationDTO> accommodations = accommodationService.searchAccommodations(name, type, address, PageRequest.of(page, size));
         // DTO 페이지 반환 (페이징 처리된 숙소 목록)
-        return ResponseEntity.ok(dtoPage);
+        return ResponseEntity.ok(accommodations);
     }
 
 

@@ -6,6 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
 /**
  * Created by SungHui on 2025. 1. 24.
  */
@@ -22,4 +25,6 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, Lo
     // 이름, 주소를 기준으로 숙소들을 조회하는 메서드 (타입 무시)
     Page<Accommodation> findByNameContainingAndAddressContaining(
             String name, String address, Pageable pageable);
+
+    List<Accommodation> findByName(String name);
 }

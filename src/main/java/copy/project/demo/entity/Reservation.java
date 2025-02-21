@@ -76,4 +76,17 @@ public class Reservation extends CommonEntity {
     }
 
 
+    public Reservation cancel() {
+        return new Reservation(
+                this.id,
+                this.member,
+                this.accommodationRoom,
+                this.reservationDate,
+                this.checkIn,
+                this.checkOut,
+                this.guestCount,
+                this.totalPrice,
+                ReservationStatus.CANCELED
+        );
+    }
 }

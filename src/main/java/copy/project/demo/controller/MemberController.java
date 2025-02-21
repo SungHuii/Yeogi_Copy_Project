@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by SungHui on 2025. 1. 24.
@@ -72,7 +71,7 @@ public class MemberController {
         // 회원 리스트를 MemberDTO 리스트로 변환 후 반환
         return memberByName.stream()
                 .map(member -> mm.map(member, MemberDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /* 닉네임으로 회원 찾기 */

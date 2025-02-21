@@ -5,12 +5,14 @@ import copy.project.demo.entity.Accommodation;
 import copy.project.demo.entity.enums.AccommodationType;
 import copy.project.demo.repository.AccommodationRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by SungHui on 2025. 2. 17.
@@ -25,30 +27,41 @@ public class AccommodationService {
 
     // 숙소 정보 저장 및 조회 담당 리파지토리
     private final AccommodationRepository accommodationRepository;
+    // ModelMapper 주입
+    private final ModelMapper mm;
 
     // 숙소 정보 등록
-    public Accommodation registerAccommodation(Accommodation accommodation) {
-        return accommodationRepository.save(accommodation);
+    public AccommodationDTO registerAccommodation(AccommodationDTO accommodationDTO) {
+        // DTO -> 엔티티로 변환
+        Accommodation accommodation = mm.map(accommodationDTO, Accommodation.class);
+        // 숙소 정보 저장
+        accommodation = accommodationRepository.save(accommodation);
+        // 엔티티 -> DTO로 변환해서 반환
+        return mm.map(accommodation, AccommodationDTO.class);
     }
 
 
-    public List<Accommodation> getAccommodationList() {
-        return accommodationRepository.findAll();
+    public List<AccommodationDTO> getAccommodationList() {
+        List<Accommodation> accommodations = accommodationRepository.findAll();
+        return accommodations.stream()
+                .map(accommodation -> mm.map(accommodation, AccommodationDTO.class))
+                .toList();
     }
 
-    public Accommodation getAccommodationById(Long id) {
-        return accommodationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("해당 숙소가 없습니다."));
+    public List<AccommodationDTO> getAccommodationByName(String name) {
+        return accommodationRepository.findByName(name).stream()
+                .map(accommodation -> mm.map(accommodation, AccommodationDTO.class))
+                .toList();
     }
 
-    public Accommodation updateAccommodation(Long id, AccommodationDTO accommodationDTO) {
+    public AccommodationDTO updateAccommodation(Long id, AccommodationDTO accommodationDTO) {
         Accommodation accommodation = accommodationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 숙소가 없습니다."));
 
-        accommodation.copy(accommodationDTO);
+        mm.map(accommodationDTO, accommodation);
         accommodationRepository.save(accommodation);
 
-        return accommodation;
+        return mm.map(accommodation, AccommodationDTO.class);
     }
 
     // 숙소 삭제 처리
@@ -64,15 +77,24 @@ public class AccommodationService {
     }
 
     // 숙소 검색 (숙소명, 숙소타입, 주소)
-    public Page<Accommodation> searchAccommodations(String name, String type, String address, Pageable pageable) {
+    public Page<AccommodationDTO> searchAccommodations(String name, String type, String address, Pageable pageable) {
         name = (name == null) ? "" : name;
         address = (address == null) ? "" : address;
 
+        Page<Accommodation> accommodations;
         if (type == null || type.isEmpty() || type.equalsIgnoreCase("ALL")) {
-            return accommodationRepository.findByNameContainingAndAddressContaining(name, address, pageable);
+            accommodations = accommodationRepository.findByNameContainingAndAddressContaining(name, address, pageable);
         } else {
             AccommodationType accommodationType = AccommodationType.valueOf(type.toUpperCase());
-            return accommodationRepository.findByNameContainingAndTypeAndAddressContaining(name, accommodationType, address, pageable);
+            accommodations = accommodationRepository.findByNameContainingAndTypeAndAddressContaining(name, accommodationType, address, pageable);
         }
+
+        return accommodations.map(accommodation -> mm.map(accommodation, AccommodationDTO.class));
+    }
+
+    // 숙소 상세 조회
+    public Optional<AccommodationDTO> getAccommodationById(Long id) {
+        return accommodationRepository.findById(id)
+                .map(accommodation -> mm.map(accommodation, AccommodationDTO.class));
     }
 }

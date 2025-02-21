@@ -4,7 +4,6 @@ import copy.project.demo.dto.ReservationDTO;
 import copy.project.demo.entity.AccommodationRoom;
 import copy.project.demo.entity.Member;
 import copy.project.demo.entity.Reservation;
-import copy.project.demo.entity.enums.ReservationStatus;
 import copy.project.demo.repository.AccommodationRoomRepository;
 import copy.project.demo.repository.MemberRepository;
 import copy.project.demo.repository.ReservationRepository;
@@ -15,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Created by SungHui on 2025. 2. 20.
@@ -71,35 +69,31 @@ public class ReservationService {
         // 예약 정보 DTO로 변환
         return reservations.stream()
                 .map(reservation -> mm.map(reservation, ReservationDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     // 식별자 값으로 예약 정보 조회
-    public ReservationDTO findReservationById(Long id) {
-        // 식별자 값으로 예약 정보 조회
-        Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 예약 정보가 존재하지 않습니다."));
-        // 예약 정보 DTO로 변환
-        return mm.map(reservation, ReservationDTO.class);
+    public Optional<ReservationDTO> findReservationById(Long id) {
+
+        Optional<Reservation> reservation = reservationRepository.findById(id);
+
+        return reservation.map(res -> mm.map(res, ReservationDTO.class));
     }
 
     // 예약 취소
-    public void cancelReservation(Long id) {
-        Optional<Reservation> reservation = reservationRepository.findById(id);
-        reservation.ifPresent(res -> {
-           Reservation canceledReservation = new Reservation(
-                     res.getId(),
-                     res.getMember(),
-                     res.getAccommodationRoom(),
-                     res.getReservationDate(),
-                     res.getCheckIn(),
-                     res.getCheckOut(),
-                     res.getGuestCount(),
-                     res.getTotalPrice(),
-                     ReservationStatus.CANCELED
-           );
-           reservationRepository.save(canceledReservation);
-        });
+    public ReservationDTO cancelReservation(Long id) {
+
+        // 예약 정보 조회
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 예약이 존재하지 않습니다."));
+
+        // 예약 정보 상태값 변경
+        Reservation canceledReservation = reservation.cancel();
+        // 변경된 예약 정보 저장
+        reservationRepository.save(canceledReservation);
+        // 변경된 예약 정보 DTO 반환
+        return mm.map(canceledReservation, ReservationDTO.class);
+
     }
 
 }

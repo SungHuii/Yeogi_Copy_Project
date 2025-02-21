@@ -18,6 +18,15 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class Payment extends CommonEntity {
 
+    protected Payment() {
+        this.id = null;
+        this.reservation = null;
+        this.price = null;
+        this.paymentMethod = null;
+        this.paymentStatus = null;
+        this.transactionId = null;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id; // 결제 id;
