@@ -1,7 +1,8 @@
 import 'react';
 import MenuItems from './MenuItems';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BtnLogin from './BtnLogin';
+import BtnProfile from './BtnProfile';
 
 // sihong 20250210 - 사이드바 메뉴 컴포넌트 추가
 const Sidebar = ({ onClose }) => {
@@ -27,7 +28,12 @@ const Sidebar = ({ onClose }) => {
 
     //로그인 페이지 라우팅
     const goLogin = () =>{
-        navigate("/SignIn");
+        navigate("/login");
+    }
+
+    //프로필 페이지 라우팅
+    const goProfile = () =>{
+        navigate("/profile");
     }
 
     return (
@@ -35,16 +41,28 @@ const Sidebar = ({ onClose }) => {
             <div className="side-bar">
                 <section className="side-bar__action-bar">
                     <button onClick={onClose}>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="icn-close">
-                            <path d="M10 8.586l5.657-5.657 1.414 1.414L11.414 10l5.657 5.657-1.414 1.414L10 11.414l-5.657 5.657-1.414-1.414L8.586 10 2.929 4.343 4.343 2.93 10 8.586z" fill="current"></path>
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="icn-close">
+                            <path
+                                d="M10 8.586l5.657-5.657 1.414 1.414L11.414 10l5.657 5.657-1.414 1.414L10 11.414l-5.657 5.657-1.414-1.414L8.586 10 2.929 4.343 4.343 2.93 10 8.586z"
+                                fill="current"></path>
                         </svg>
                     </button>
                 </section>
                 <section className="side-bar__contents">
-                    {/* 이미지 영역 */}
-                    <div></div>
-                    {/* 회원가입 / 로그인 버튼 */}
-                    <BtnLogin onClick={goLogin} />
+                    <div className="menu-group-wrapper">
+                        {/* 이미지 영역 */}
+                        <Link href="/benefit/elite"></Link>
+                        {/* 회원가입 / 로그인 버튼 */}
+                        <BtnLogin onClick={goLogin} />
+                        {/* 내 정보 관리 */}
+                        <BtnProfile onClick={goProfile} />
+                    </div>
                     {/* 메뉴 리스트 */}
                     <div className="menu-group-wrapper">
                         <span>모든 여행</span>
