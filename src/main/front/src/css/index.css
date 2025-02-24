@@ -1,11 +1,11 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Pretendard,pretendard_Fallback,-apple-system,BlinkMacSystemFont,system-ui,Roboto,Helvetica Neue,Segoe UI,Apple SD Gothic Neo,Noto Sans KR,Malgun Gothic,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #333;
+  background-color: #fff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,7 +20,19 @@ button{display: flex; justify-content: center; align-items: center; padding: 0; 
 button svg{fill: #333;}
 
 /* header */
-.header{height: 56px; background: #fff;}
+.header{height: 56px; background: #fff; border-bottom: 1px solid #ebebeb;}
 .side-bar-wrapper{position: fixed; top:0; right: 0; display: flex; justify-content: flex-end; width: 100%; height: 100%; color: #333; background-color: rgba(0, 0, 0, 0.48);}
 .side-bar{flex: 0 1 520px; display: flex; flex-direction: column; background-color: #fff;}
 .side-bar__action-bar{display: flex; align-items: center; height: 56px; padding: 0 20px;}
+/* .side-bar__contents > *{margin: 0 20px; box-sizing: border-box;} */
+.side-bar__contents .banner{margin-bottom: 10px;}
+.btn{width: 100%; padding: 10px 8px; color: #fff; font-size: 1rem; font-weight: 600; border-radius: 10px;}
+.btn.blue{background-color: rgb(29 139 255);}
+.btn.blue:hover{background-color: rgb(0 108 224);}
+.btn.kakao-login{background-color: #ffde00;}
+.btn.kakao-login:hover{background-color: #fbda00;}
+.btn.naver-login{background-color: #00c73c; color: #fff;}
+.btn.naver-login:hover{background-color: #00c13a;}
+.btn.google-login{background-color: #fff; border:1px solid rgba(0,0,0,.16); color: #0000008f;}
+.btn.google-login:hover{background-color: #f5f5f5;}
+.menu-group-wrapper{padding: 0 20px;}
