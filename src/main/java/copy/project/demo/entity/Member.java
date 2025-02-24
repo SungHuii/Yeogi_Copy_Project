@@ -1,6 +1,6 @@
 package copy.project.demo.entity;
 
-import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.common.CommonEntity;
 import copy.project.demo.entity.enums.MemberGender;
 import copy.project.demo.entity.enums.MemberRole;
 import copy.project.demo.entity.enums.MemberType;
@@ -14,11 +14,24 @@ import java.time.LocalDate;
  */
 @Entity // JPA 엔티티로 등록
 @Getter // Lombok Getter 자동 생성
-@RequiredArgsConstructor // 기본 생성자 자동 생성
+@RequiredArgsConstructor
 @Table(name = "member", uniqueConstraints = {
         @UniqueConstraint(name = "UK_member_loginId", columnNames = "login_id") // 회원가입 ID 중복 방지 제약 조건
 })
 public class Member extends CommonEntity { // 회원 정보
+
+    protected Member () {
+        this.id = null;
+        this.loginId = null;
+        this.password = null;
+        this.type = null;
+        this.name = null;
+        this.nickname = null;
+        this.phone = null;
+        this.gender = null;
+        this.birthDate = null;
+        this.role = null;
+    }
 
     // 회원 식별자 값
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

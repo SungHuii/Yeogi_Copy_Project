@@ -1,6 +1,6 @@
 package copy.project.demo.entity;
 
-import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +19,14 @@ import java.time.LocalDateTime;
 @Getter
 @RequiredArgsConstructor
 public class Coupon extends CommonEntity {
+
+    protected Coupon () {
+        this.id = null;
+        this.member = null;
+        this.code = null;
+        this.discountAmount = 0;
+        this.expiryDate = null;
+    }
 
     // 쿠폰 식별자
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

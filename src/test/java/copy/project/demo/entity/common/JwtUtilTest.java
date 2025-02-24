@@ -1,5 +1,6 @@
 package copy.project.demo.entity.common;
 
+import copy.project.demo.common.JwtUtil;
 import copy.project.demo.entity.enums.MemberRole;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

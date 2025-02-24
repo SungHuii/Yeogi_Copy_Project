@@ -1,6 +1,6 @@
 package copy.project.demo.entity;
 
-import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.common.CommonEntity;
 import copy.project.demo.entity.enums.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -60,6 +60,18 @@ public class Reservation extends CommonEntity {
     @Column(name = "status", nullable = false)
     private final ReservationStatus status;
 
+    protected Reservation () {
+        this.id = null;
+        this.member = null;
+        this.accommodationRoom = null;
+        this.reservationDate = null;
+        this.checkIn = null;
+        this.checkOut = null;
+        this.guestCount = 0;
+        this.totalPrice = 0;
+        this.status = null;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
@@ -73,6 +85,20 @@ public class Reservation extends CommonEntity {
                 ", totalPrice=" + totalPrice +
                 ", status=" + status +
                 '}';
+    }
+
+    public Reservation confirmed() {
+        return new Reservation(
+                this.id,
+                this.member,
+                this.accommodationRoom,
+                this.reservationDate,
+                this.checkIn,
+                this.checkOut,
+                this.guestCount,
+                this.totalPrice,
+                ReservationStatus.CONFIRMED
+        );
     }
 
 

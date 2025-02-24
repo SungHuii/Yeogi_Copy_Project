@@ -1,6 +1,6 @@
 package copy.project.demo.library;
 
-import copy.project.demo.entity.common.JwtUtil;
+import copy.project.demo.common.JwtUtil;
 import copy.project.demo.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

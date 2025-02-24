@@ -1,6 +1,6 @@
 package copy.project.demo.entity;
 
-import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +18,14 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class Review extends CommonEntity {
+
+    protected Review () {
+        this.id = null;
+        this.member = null;
+        this.accommodation = null;
+        this.rating = 0;
+        this.comment = null;
+    }
 
     // 리뷰 식별자
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,8 @@
 package copy.project.demo.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by SungHui on 2025. 1. 24.
@@ -9,12 +10,13 @@ import lombok.RequiredArgsConstructor;
 
 /* 리뷰 DTO */
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReviewDTO {
 
-    private final Long id; // 식별자 값
-    private final Long memberId; // 리뷰 작성자 식별자 값
-    private final Long accommodationId; // 리뷰 숙소 식별자 값
-    private final byte rating; // 평점
-    private final String comment; // 리뷰 내용
+    private Long id; // 식별자 값
+    private Long memberId; // 리뷰 작성자 식별자 값
+    private Long accommodationId; // 리뷰 숙소 식별자 값
+    private byte rating; // 평점
+    private String comment; // 리뷰 내용
 }

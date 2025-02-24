@@ -1,4 +1,4 @@
-package copy.project.demo.entity.common;
+package copy.project.demo.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

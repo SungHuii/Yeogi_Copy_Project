@@ -1,6 +1,6 @@
 package copy.project.demo.entity;
 
-import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.common.CommonEntity;
 import copy.project.demo.entity.enums.PaymentMethod;
 import copy.project.demo.entity.enums.PaymentStatus;
 import jakarta.persistence.*;

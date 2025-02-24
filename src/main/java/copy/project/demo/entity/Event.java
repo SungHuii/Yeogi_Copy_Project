@@ -1,6 +1,6 @@
 package copy.project.demo.entity;
 
-import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +16,15 @@ import java.time.LocalDateTime;
 @Getter
 @RequiredArgsConstructor
 public class Event extends CommonEntity {
+
+    protected Event () {
+        this.id = null;
+        this.title = null;
+        this.description = null;
+        this.startDate = null;
+        this.endDate = null;
+        this.imageUrl = null;
+    }
 
     // 이벤트 식별자
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +52,7 @@ public class Event extends CommonEntity {
     @Lob
     @Column(name = "image_url")
     private final String imageUrl;
+
 
     @Override
     public String toString() {

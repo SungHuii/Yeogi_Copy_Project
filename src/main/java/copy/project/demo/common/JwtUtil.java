@@ -1,4 +1,4 @@
-package copy.project.demo.entity.common;
+package copy.project.demo.common;
 
 import copy.project.demo.entity.enums.MemberRole;
 import io.jsonwebtoken.Claims;

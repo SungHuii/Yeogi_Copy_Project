@@ -1,7 +1,8 @@
 package copy.project.demo.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by SungHui on 2025. 1. 22.
@@ -9,13 +10,14 @@ import lombok.RequiredArgsConstructor;
 
 /* 숙소 내 방 DTO */
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccommodationRoomDTO {
 
-    private final Long id; // 식별자 값
-    private final Long accommodationId; // 연결된 숙소 식별자 값
-    private final String roomType; // 방 타입
-    private final int maxOccupancy; // 최대 수용 인원
-    private final int price; // 가격
+    private Long id; // 식별자 값
+    private Long accommodationId; // 연결된 숙소 식별자 값
+    private String roomType; // 방 타입
+    private int maxOccupancy; // 최대 수용 인원
+    private int price; // 가격
 
 }

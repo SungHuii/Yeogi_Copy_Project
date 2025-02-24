@@ -17,6 +17,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Favorite {
 
+    protected Favorite () {
+        this.id = null;
+        this.member = null;
+        this.accommodation = null;
+    }
+
     // 찜 목록 식별자
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -31,6 +37,8 @@ public class Favorite {
     @ManyToOne // 다대일
     @JoinColumn(name = "accommodation_id", nullable = false) // 외래키
     private final Accommodation accommodation;
+
+
 
     @Override
     public String toString() {

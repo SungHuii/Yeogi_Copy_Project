@@ -1,7 +1,7 @@
 package copy.project.demo.entity;
 
+import copy.project.demo.common.CommonEntity;
 import copy.project.demo.dto.AccommodationDTO;
-import copy.project.demo.entity.common.CommonEntity;
 import copy.project.demo.entity.enums.AccommodationType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,6 +22,18 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public class Accommodation extends CommonEntity { // 숙소 정보
+
+    protected Accommodation () {
+        this.id = null;
+        this.name = null;
+        this.description = null;
+        this.type = null;
+        this.address = null;
+        this.latitude = null;
+        this.longitude = null;
+        this.imageUrl = null;
+        this.roomList = null;
+    }
 
     // 숙소 식별자 값
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
