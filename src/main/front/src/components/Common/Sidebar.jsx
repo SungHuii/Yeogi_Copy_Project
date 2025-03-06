@@ -6,35 +6,34 @@ import BtnProfile from './BtnProfile';
 
 // sihong 20250210 - 사이드바 메뉴 컴포넌트 추가
 const Sidebar = ({ onClose }) => {
-
     const travelMenus = [
-        {id:"1", name:"국내숙소"},
-        {id:"2", name:"해외숙소"},
-        {id:"3", name:"항공"},
-        {id:"4", name:"항공+숙소"},
-        {id:"5", name:"레저·티켓"},
-        {id:"6", name:"렌터카"},
-        {id:"7", name:"공간대여"},
+        { id: '1', name: '국내숙소' },
+        { id: '2', name: '해외숙소' },
+        { id: '3', name: '항공' },
+        { id: '4', name: '항공+숙소' },
+        { id: '5', name: '레저·티켓' },
+        { id: '6', name: '렌터카' },
+        { id: '7', name: '공간대여' },
     ];
 
     const otherMenus = [
-        {id:"1", name:"비회원 예약조회"},
-        {id:"2", name:"이벤트"},
-        {id:"3", name:"고객센터"},
-    ]
+        { id: '1', name: '비회원 예약조회' },
+        { id: '2', name: '이벤트' },
+        { id: '3', name: '고객센터' },
+    ];
 
     //페이지 라우팅을 위해 useNavigate 선언
     const navigate = useNavigate();
 
     //로그인 페이지 라우팅
-    const goLogin = () =>{
-        navigate("/login");
-    }
+    const goLogin = () => {
+        navigate('/login');
+    };
 
     //프로필 페이지 라우팅
-    const goProfile = () =>{
-        navigate("/profile");
-    }
+    const goProfile = () => {
+        navigate('/profile');
+    };
 
     return (
         <aside className="side-bar-wrapper">
@@ -65,7 +64,7 @@ const Sidebar = ({ onClose }) => {
                     </div>
                     {/* 메뉴 리스트 */}
                     <div className="menu-group-wrapper">
-                        <span>모든 여행</span>
+                        <span className="menu-group__title">모든 여행</span>
                         <ul className="menu-items-wrapper">
                             {travelMenus.map((item) => (
                                 <MenuItems key={item.id} menuName={item.name} />
@@ -73,7 +72,7 @@ const Sidebar = ({ onClose }) => {
                         </ul>
                     </div>
                     <div className="menu-group-wrapper">
-                        <ul>
+                        <ul className="menu-items-wrapper">
                             {otherMenus.map((item) => (
                                 <MenuItems key={item.id} menuName={item.name} />
                             ))}
@@ -83,6 +82,6 @@ const Sidebar = ({ onClose }) => {
             </div>
         </aside>
     );
-}
+};
 
 export default Sidebar;

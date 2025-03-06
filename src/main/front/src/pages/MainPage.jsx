@@ -75,7 +75,7 @@ const MainPage = () => {
     return (
         <div className="App">
             <Header />
-            <div>
+            <div className="contents flex-column">
                 <p>백엔드 데이터: {hello}</p>
                 {error && <p>{error}</p>}
                 {user ? (
