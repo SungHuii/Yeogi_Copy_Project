@@ -2,7 +2,7 @@ package copy.project.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by SungHui on 2025. 1. 22.
@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 /* 찜 목록 엔티티 */
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Favorite {
 
     protected Favorite () {
@@ -26,17 +26,30 @@ public class Favorite {
     // 찜 목록 식별자
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private final Long id;
+    private Long id;
 
     // 회원 정보
     @ManyToOne // 다대일
     @JoinColumn(name = "member_id", nullable = false) // 외래키
-    private final Member member;
+    private Member member;
 
     // 숙소 정보
     @ManyToOne // 다대일
     @JoinColumn(name = "accommodation_id", nullable = false) // 외래키
-    private final Accommodation accommodation;
+    private Accommodation accommodation;
+
+    // 생성자에서만 값 설정
+    public Favorite(Member member, Accommodation accommodation) {
+        this.member = member;
+        this.accommodation = accommodation;
+    }
+
+    // 찜 추가
+    public static Favorite createFavorite(Member member, Accommodation accommodation) {
+        return new Favorite(member, accommodation);
+    }
+
+
 
 
 
