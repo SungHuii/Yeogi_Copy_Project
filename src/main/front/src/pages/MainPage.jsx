@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/Common/Header";
 import axios from "axios";
 import mainVisual from "../assets/Images/05_Kv_PC_Light_B.8067bd3b.webp";
+import KakaoPayButton from "../components/Kakao/KakaoPayButton";
 
 const MainPage = () => {
     const [hello, setHello] = useState('');
@@ -131,7 +132,7 @@ const MainPage = () => {
                     />
                     <button onClick={handleSearch}>검색</button>
                 </div>
-
+                <KakaoPayButton/>
                 <div>
                     <h2>숙소 검색 결과</h2>
                     {searchError && <p>{searchError}</p>}
