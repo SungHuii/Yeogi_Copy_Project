@@ -14,7 +14,7 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
     List<Favorite> findByMemberId(Long id);
 
     // 찜 목록 존재여부 확인
-    boolean existsByMemberIdAccommodationId(Long memberId, Long accommodationId);
+    boolean existsByMemberIdAndAccommodationId(Long memberId, Long accommodationId);
 
     // 찜 목록 삭제
     void deleteByMemberIdAndAccommodationId(Long memberId, Long accommodationId);

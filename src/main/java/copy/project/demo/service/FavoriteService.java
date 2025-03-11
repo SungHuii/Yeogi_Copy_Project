@@ -31,7 +31,7 @@ public class FavoriteService {
 
     // 찜 목록 추가
     public void addFavorite(Long memberId, Long accommodationId) {
-        if(favoriteRepository.existsByMemberIdAccommodationId(memberId, accommodationId)) {
+        if(favoriteRepository.existsByMemberIdAndAccommodationId(memberId, accommodationId)) {
             throw new IllegalStateException("이미 즐겨찾기에 추가된 숙소입니다.");
         }
 
@@ -62,7 +62,7 @@ public class FavoriteService {
     // 찜 목록 삭제
     public void removeFavorite(Long memberId, Long accommodationId) {
         // 찜 존재 여부 확인
-        if(!favoriteRepository.existsByMemberIdAccommodationId(memberId, accommodationId)) {
+        if(!favoriteRepository.existsByMemberIdAndAccommodationId(memberId, accommodationId)) {
             throw new IllegalStateException("찜 목록에 해당 숙소가 없습니다.");
         }
 
