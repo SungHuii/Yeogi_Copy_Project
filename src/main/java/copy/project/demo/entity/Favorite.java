@@ -17,12 +17,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Favorite {
 
-    protected Favorite () {
-        this.id = null;
-        this.member = null;
-        this.accommodation = null;
-    }
-
     // 찜 목록 식별자
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -48,10 +42,6 @@ public class Favorite {
     public static Favorite createFavorite(Member member, Accommodation accommodation) {
         return new Favorite(member, accommodation);
     }
-
-
-
-
 
     @Override
     public String toString() {

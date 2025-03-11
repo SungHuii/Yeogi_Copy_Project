@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Created by SungHui on 2025. 3. 11.
  */
+/* 찜 목록 서비스 */
 @Service
 @RequiredArgsConstructor
 public class FavoriteService {

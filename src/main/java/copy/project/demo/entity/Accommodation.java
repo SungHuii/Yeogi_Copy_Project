@@ -5,7 +5,7 @@ import copy.project.demo.dto.AccommodationDTO;
 import copy.project.demo.entity.enums.AccommodationType;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -20,58 +20,46 @@ import java.util.List;
 * */
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Accommodation extends CommonEntity { // 숙소 정보
-
-    protected Accommodation () {
-        this.id = null;
-        this.name = null;
-        this.description = null;
-        this.type = null;
-        this.address = null;
-        this.latitude = null;
-        this.longitude = null;
-        this.imageUrl = null;
-        this.roomList = null;
-    }
 
     // 숙소 식별자 값
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private final Long id;
+    private Long id;
 
     // 숙소명
     @Column(name = "name", nullable = false)
-    private final String name;
+    private String name;
 
     // 숙소 설명
     @Lob // Large Object
     @Column(name = "description")
-    private final String description;
+    private String description;
 
     // 숙소 타입
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
-    private final AccommodationType type; // 호텔, 모텔, 펜션, 게스트하우스
+    private AccommodationType type; // 호텔, 모텔, 펜션, 게스트하우스
 
     // 숙소 주소
     @Column(name = "address", nullable = false)
-    private final String address;
+    private String address;
 
     @Column(name = "latitude", nullable = false)
-    private final BigDecimal latitude; // 위도
+    private BigDecimal latitude; // 위도
 
     @Column(name = "longitude", nullable = false)
-    private final BigDecimal longitude; // 경도
+    private BigDecimal longitude; // 경도
 
     // 숙소 이미지
     @Lob
     @Column(name = "image_url")
-    private final String imageUrl;
+    private String imageUrl;
 
     // 숙소 방 정보
     @OneToMany(mappedBy = "accommodation") // 연관 관계의 주인 X
-    private final List<AccommodationRoom> roomList;
+    private List<AccommodationRoom> roomList;
 
     @Override
     public String toString() {
@@ -86,6 +74,23 @@ public class Accommodation extends CommonEntity { // 숙소 정보
                 ", imageUrl='" + imageUrl + '\'' +
                 ", roomList=" + roomList +
                 '}';
+    }
+
+    // 명시적 생성자
+
+
+    public Accommodation(Long id, String name, String description, AccommodationType type,
+                         String address, BigDecimal latitude, BigDecimal longitude,
+                         String imageUrl, List<AccommodationRoom> roomList) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.imageUrl = imageUrl;
+        this.roomList = roomList;
     }
 
     // 숙소 정보 수정용

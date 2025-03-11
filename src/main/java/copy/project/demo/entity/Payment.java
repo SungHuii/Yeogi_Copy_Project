@@ -5,7 +5,7 @@ import copy.project.demo.entity.enums.PaymentMethod;
 import copy.project.demo.entity.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -15,39 +15,41 @@ import java.math.BigDecimal;
 /* 결제 정보 관련 엔티티 */
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Payment extends CommonEntity {
-
-    protected Payment() {
-        this.id = null;
-        this.reservation = null;
-        this.price = null;
-        this.paymentMethod = null;
-        this.paymentStatus = null;
-        this.transactionId = null;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final Long id; // 결제 id;
+    private Long id; // 결제 id;
 
     @ManyToOne
     @JoinColumn(name = "reservation_id", nullable = false)
-    private final Reservation reservation; // 예약 정보
+    private Reservation reservation; // 예약 정보
 
     @Column(nullable = false)
-    private final BigDecimal price; // 결제 금액
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private final PaymentMethod paymentMethod; // 결제 수단
+    private BigDecimal price; // 결제 금액
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private final PaymentStatus paymentStatus; // 결제 상태
+    private PaymentMethod paymentMethod; // 결제 수단
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PaymentStatus paymentStatus; // 결제 상태
 
     @Column(nullable = false)
-    private final String transactionId; // 결제 고유 번호
+    private String transactionId; // 결제 고유 번호
+
+    //명시적 생성자
+    public Payment(Long id, Reservation reservation, BigDecimal price,
+                   PaymentMethod paymentMethod, PaymentStatus paymentStatus, String transactionId) {
+        this.id = id;
+        this.reservation = reservation;
+        this.price = price;
+        this.paymentMethod = paymentMethod;
+        this.paymentStatus = paymentStatus;
+        this.transactionId = transactionId;
+    }
 
     @Override
     public String toString() {
