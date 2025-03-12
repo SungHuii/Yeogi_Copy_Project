@@ -1,6 +1,6 @@
 package copy.project.demo.entity;
 
-import copy.project.demo.common.CommonEntity;
+import copy.project.demo.entity.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

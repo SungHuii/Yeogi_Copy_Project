@@ -1,6 +1,6 @@
 package copy.project.demo.security;
 
-import copy.project.demo.common.JwtUtil;
+import copy.project.demo.entity.common.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
