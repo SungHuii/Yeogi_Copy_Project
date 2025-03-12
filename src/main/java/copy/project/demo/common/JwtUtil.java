@@ -1,5 +1,6 @@
 package copy.project.demo.common;
 
+import copy.project.demo.entity.Member;
 import copy.project.demo.entity.enums.MemberRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -25,6 +26,8 @@ public class JwtUtil {
 
     private final Key key; // HMAC-SHA256 서명을 위한 비밀 키
     private final long validTime = 1000 * 60 * 60 * 24; // 토큰의 유효 기간 (24시간 유효)
+    private final long accessTokenValidTime = 1000 * 60 * 30; // 엑세스 토큰 유효 기간 (30분)
+    private final long refreshTokenValidTime = 1000L * 60 * 60 * 24 * 7; // 리프레시 토큰 유효 기간 (7일)
 
     // application.properties 에 있는 jwt.secret 값 주입
     public JwtUtil(@Value("${jwt.secret}") String secretKey) {
@@ -41,6 +44,27 @@ public class JwtUtil {
               .setExpiration(new Date(System.currentTimeMillis() + validTime)) // 현재 시간에서 24시간 후를 만료시간으로 설정
               .signWith(key) // 비밀 키로 서명
               .compact(); // 최종적으로 JWT 문자열 반환
+    }
+
+    /* 엑세스 토큰 생성 */
+    public String generateAccessToken(Member member) {
+        return Jwts.builder()
+                .claim("loginId", member.getLoginId())
+                .claim("role", member.getRole().name()) // enum 타입은 name()으로 문자열로 변환
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + accessTokenValidTime))
+                .signWith(key)
+                .compact();
+    }
+
+    /* 리프레시 토큰 생성 */
+    public String generateRefreshToken(Member member) {
+        return Jwts.builder()
+                .claim("loginId", member.getLoginId())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenValidTime))
+                .signWith(key)
+                .compact();
     }
 
     /* 토큰을 파싱(해석)해서 Claims(데이터)를 가져오는 메서드 */

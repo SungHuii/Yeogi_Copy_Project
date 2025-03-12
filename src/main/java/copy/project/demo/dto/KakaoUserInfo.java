@@ -4,7 +4,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-
+/**
+ * Created by SungHui on 2025. 3. 11.
+ */
 @Data
 @NoArgsConstructor
 public class KakaoUserInfo {
