@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 /* 회원 정보 DTO */
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(force = true)  // 기본 생성자 추가 (final 필드 강제 초기화)
 @AllArgsConstructor
 public class MemberDTO {
 
