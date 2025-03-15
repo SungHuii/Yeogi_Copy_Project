@@ -3,7 +3,7 @@ package copy.project.demo.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import copy.project.demo.common.JwtUtil;
-import copy.project.demo.dto.NaverApi;
+import copy.project.demo.common.NaverApi;
 import copy.project.demo.dto.NaverTokenResponse;
 import copy.project.demo.dto.NaverUserInfo;
 import copy.project.demo.entity.Member;

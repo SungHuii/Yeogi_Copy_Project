@@ -1,4 +1,4 @@
-package copy.project.demo.dto;
+package copy.project.demo.common;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 @Data
 public class NaverApi {
 
-    @Value("${naver.client-id}")
+    @Value("${spring.security.oauth2.client.registration.naver.client-id}")
     private String naverClientId;
 
-    @Value("${naver.redirect-uri}")
+    @Value("${spring.security.oauth2.client.registration.naver.redirect-uri}")
     private String naverRedirectUri;
 
-    @Value("${naver.client-secret}")
+    @Value("${spring.security.oauth2.client.registration.naver.client-secret}")
     private String naverClientSecret;
 }

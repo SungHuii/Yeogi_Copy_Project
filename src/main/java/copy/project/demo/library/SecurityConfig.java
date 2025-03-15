@@ -2,6 +2,7 @@ package copy.project.demo.library;
 
 import copy.project.demo.common.JwtUtil;
 import copy.project.demo.security.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +15,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -24,16 +27,13 @@ import org.springframework.security.web.SecurityFilterChain;
 * */
 @Configuration // 설정 파일 클래스 어노테이션
 @EnableWebSecurity // 웹 보안(Spring Security) 활성화 어노테이션
+@RequiredArgsConstructor
 /*@RequiredArgsConstructor // final 필드 생성자 자동 생성가능*/
 public class SecurityConfig {
 
     private final JwtUtil jwtUtil; // JWT 생성, 검증 담당 유틸
     private final UserDetailsService userDetailsService; // 사용자 정보 서비스. DB에서 사용자 정보를 가져옴
 
-    public SecurityConfig(JwtUtil jwtUtil, UserDetailsService userDetailsService) {
-        this.jwtUtil = jwtUtil;
-        this.userDetailsService = userDetailsService;
-    }
 
     // passwordEncoder를 사용하면 비밀번호를 암호화해서 저장 가능
     // 회원가입 시 비밀번호를 암호화해서 DB 저장
@@ -42,26 +42,24 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(); // BCrypt 암호화 빈 등록
     }
 
-    // JWT 로그인 요청 처리 인증 필터
-    @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(AuthenticationManager authenticationManager) throws Exception{
-        return new JwtAuthenticationFilter(jwtUtil, authenticationManager);
-        // authenticationManager : 사용자 인증을 담당하는 객체
-        // JWT 생성 및 검증 기능을 필터에 전달
-    }
-
     // 사용자 인증 관리자 설정
-    /*@Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-              .userDetailsService(userDetailsService) // DB에서 사용자 정보를 가져오는 서비스 설정
-              .passwordEncoder(passwordEncoder()) // 비밀번호를 비교할 때 위의 passwordEncoder()로 암호화된 비밀번호를 비교
-              .and()
-              .build(); // AuthenticationManager 객체 생성 후 반환
-    }*/
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    // 사용자 인증 설정
+    @Bean
+    public AuthenticationConfiguration authenticationConfiguration() {
+        return new AuthenticationConfiguration();
+    }
+
+    // JWT 로그인 요청 처리 인증 필터
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception{
+        return new JwtAuthenticationFilter(jwtUtil, authenticationManager(authenticationConfiguration()));
+        // authenticationManager : 사용자 인증을 담당하는 객체
+        // JWT 생성 및 검증 기능을 필터에 전달
     }
 
     // DAO 기반 인증 제공자 설정
@@ -71,6 +69,17 @@ public class SecurityConfig {
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
+    }
+
+    // OAuth2 사용자 정보 서비스 설정
+    @Bean
+    public DefaultOAuth2UserService oAuth2UserService() {
+        return new DefaultOAuth2UserService();
+    }
+    // OIDC 사용자 정보 서비스 설정
+    @Bean
+    public OidcUserService oidcUserService() {
+        return new OidcUserService();
     }
 
     // 사용자 권한 체크, 보안 필터 체인 설정
@@ -85,9 +94,13 @@ public class SecurityConfig {
                         .anyRequest().permitAll())
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login") // 로그인 페이지 경로
-                        .permitAll() // OAuth2 로그인 모두 허용
-                )
-                .addFilterBefore(jwtAuthenticationFilter(authenticationManager), JwtAuthenticationFilter.class); // JWT 로그인 필터 추가
+                        .userInfoEndpoint(userInfo -> userInfo // 사용자 정보 엔드포인트 설정
+                                .userService(oAuth2UserService()) // OAuth2 사용자 정보 서비스 설정
+                                .oidcUserService(oidcUserService()) // OIDC 사용자 정보 서비스 설정
+                        )
+                        .permitAll()) // OAuth2 로그인 모두 허용
+                .authenticationProvider(authenticationProvider()) // 사용자 인증 제공자 설정
+                .addFilterBefore(jwtAuthenticationFilter(), JwtAuthenticationFilter.class); // JWT 로그인 필터 추가
 
         return http.build(); // SecurityFilterChain 반환
     }
