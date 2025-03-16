@@ -18,13 +18,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Created by SungHui on 2025. 2. 6.
  */
 /*
-*  Security 설정 클래스
-* */
+ *  Security 설정 클래스
+ * */
 @Configuration // 설정 파일 클래스 어노테이션
 @EnableWebSecurity // 웹 보안(Spring Security) 활성화 어노테이션
 @RequiredArgsConstructor
@@ -100,7 +101,7 @@ public class SecurityConfig {
                         )
                         .permitAll()) // OAuth2 로그인 모두 허용
                 .authenticationProvider(authenticationProvider()) // 사용자 인증 제공자 설정
-                .addFilterBefore(jwtAuthenticationFilter(), JwtAuthenticationFilter.class); // JWT 로그인 필터 추가
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // JWT 로그인 필터 추가
 
         return http.build(); // SecurityFilterChain 반환
     }
