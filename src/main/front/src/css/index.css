@@ -159,7 +159,7 @@ button svg {
 .main-visual{
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 60px 20px;
+  padding: 3.75rem 1.25rem;
   z-index: 11;
 }
 .main-visual__title{
@@ -188,7 +188,7 @@ button svg {
   gap: 8px;
   width: 100%;
   height: 48px;
-  padding: 0 16px 0 20px;
+  padding: 0 1rem 0 1.25rem;
   background: #fff;
   border-radius: 8px;
 }
@@ -202,4 +202,52 @@ button svg {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.home-slide-section{
+  width: 100%;
+  height: 100%;
+  margin: 1rem auto 0;
+  padding: 0;
+}
+.home-slide__title{
+  width: 100%;
+  padding: 1rem 1.25rem;
+}
+.home-slide__flex{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.slide__title{
+  color: #515151;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: normal;
+}
+.home-slide__cont{
+  /* width: 100%; */
+}
+.home-slide__cont .swiper{
+  padding-bottom: 1.875rem;
+}
+.home-slide__cont .swiper-slide{
+  width: auto;
+}
+.slide__img{
+  width: 100%;
+  max-width: 324px;
+}
+.link-more{
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  white-space: nowrap;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: normal;
+  letter-spacing: 0px;
+  color: #1d8bff;
+  padding: 0;
+  text-decoration: auto;
 }
