@@ -12,7 +12,6 @@ import 'swiper/css/scrollbar';
 
 // 이미지 import
 import mainVisual from '../assets/Images/05_Kv_PC_Light_B.8067bd3b.webp';
-import eventImg01 from '../assets/Images/img-event01.jpg';
 import domestic_jeju_01 from '../assets/Images/img-region_jeju_01.jpeg';
 
 const MainPage = () => {

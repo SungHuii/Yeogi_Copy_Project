@@ -6,7 +6,7 @@ const InfoItem = ({ infoTitle, infoContents }) => {
         <div>
             <p>{ infoTitle }</p>
             <div>
-                <input type="text" value={infoContents} />
+                <input type="text" value={infoContents} readOnly />
             </div>
         </div>
     );
