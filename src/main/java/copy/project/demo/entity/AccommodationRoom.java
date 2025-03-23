@@ -1,9 +1,9 @@
 package copy.project.demo.entity;
 
-import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by SungHui on 2025. 1. 22.
@@ -14,33 +14,41 @@ import lombok.RequiredArgsConstructor;
 * */
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class AccommodationRoom extends CommonEntity { // 숙소 방 정보
 
     // 숙소 방 정보 식별값
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private final Long id;
+    private Long id;
 
     // 숙소 정보
     @ManyToOne // 연관 관계의 주인
     @JoinColumn(name = "accommodation_id", nullable = false) // 외래키
-    private final Accommodation accommodation;
+    private Accommodation accommodation;
 
     // 숙소 방 종류
     /* ENUM 처리 하지 않은 이유는
     * Standard, Deluxe, Premium, Single, Double 등등 종류가 너무 많기 때문 */
     @Column(name = "room_type", nullable = false)
-    private final String roomType;
+    private String roomType;
 
     // 최대 수용 인원
     @Column(name = "max_occupancy", nullable = false)
-    private final int maxOccupancy;
+    private int maxOccupancy;
 
     // 숙소 방 가격
     @Column(name = "price", nullable = false)
-    private final int price;
+    private int price;
 
+    // 명시적 생성자
+    public AccommodationRoom(Long id, Accommodation accommodation, String roomType, int maxOccupancy, int price) {
+        this.id = id;
+        this.accommodation = accommodation;
+        this.roomType = roomType;
+        this.maxOccupancy = maxOccupancy;
+        this.price = price;
+    }
 
     @Override
     public String toString() {

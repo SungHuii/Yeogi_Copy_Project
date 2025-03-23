@@ -1,10 +1,9 @@
 package copy.project.demo.entity;
 
+import copy.project.demo.common.CommonEntity;
 import copy.project.demo.dto.AccommodationDTO;
-import copy.project.demo.entity.common.CommonEntity;
 import copy.project.demo.entity.enums.AccommodationType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +20,6 @@ import java.util.List;
 * */
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Accommodation extends CommonEntity { // 숙소 정보
 
@@ -76,6 +74,23 @@ public class Accommodation extends CommonEntity { // 숙소 정보
                 ", imageUrl='" + imageUrl + '\'' +
                 ", roomList=" + roomList +
                 '}';
+    }
+
+    // 명시적 생성자
+
+
+    public Accommodation(Long id, String name, String description, AccommodationType type,
+                         String address, BigDecimal latitude, BigDecimal longitude,
+                         String imageUrl, List<AccommodationRoom> roomList) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.imageUrl = imageUrl;
+        this.roomList = roomList;
     }
 
     // 숙소 정보 수정용

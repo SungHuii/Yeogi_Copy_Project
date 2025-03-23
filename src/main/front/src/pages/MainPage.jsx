@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Header from '../components/Common/Header';
 import axios from 'axios';
-// import KakaoPayButton from "../components/Kakao/KakaoPayButton";
 
 // swiper import
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -298,7 +297,6 @@ const MainPage = () => {
                     />
                     <button onClick={handleSearch}>검색</button>
                 </div>
-                {/* <KakaoPayButton/> */}
                 <div>
                     <h2>숙소 검색 결과</h2>
                     {searchError && <p>{searchError}</p>}

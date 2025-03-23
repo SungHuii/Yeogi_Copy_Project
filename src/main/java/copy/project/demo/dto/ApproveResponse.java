@@ -1,12 +1,14 @@
 package copy.project.demo.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor(force = true)  // 기본 생성자 추가 (final 필드 강제 초기화)
 public class ApproveResponse {
 
     private String aid;                 // 요청 고유 번호

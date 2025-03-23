@@ -2,6 +2,7 @@ package copy.project.demo.dto;
 
 import copy.project.demo.entity.enums.AccommodationType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.util.List;
 /* 숙소 DTO */
 @Getter
 @RequiredArgsConstructor
+@NoArgsConstructor(force = true)  // 기본 생성자 추가 (final 필드 강제 초기화)
 public class AccommodationDTO {
 
     private final Long id; // 식별자 값
@@ -28,7 +30,8 @@ public class AccommodationDTO {
     private final List<AccommodationRoomDTO> roomList; // 숙소 방 리스트
 
     // Jackson의 역직렬화 과정에 필요한 기본 생성자
-    public AccommodationDTO() {
+    // @NoArgsConstructor(force = true) 애너테이션으로 인해 강제로 초기화 가능하여 삭제
+/*    public AccommodationDTO() {
         this.id = null;
         this.name = null;
         this.description = null;
@@ -38,7 +41,7 @@ public class AccommodationDTO {
         this.longitude = null;
         this.imageUrl = null;
         this.roomList = new ArrayList<>();
-    }
+    }*/
 
     // 빈 리스트로 초기화하는 추가 생성자
     public AccommodationDTO(Long id, String name, String description, AccommodationType type,

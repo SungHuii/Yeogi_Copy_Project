@@ -1,10 +1,11 @@
 package copy.project.demo.entity;
 
-import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.common.CommonEntity;
 import copy.project.demo.entity.enums.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
 /**
@@ -17,48 +18,63 @@ import java.time.LocalDate;
  * */
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Reservation extends CommonEntity {
 
     // 예약 식별자
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private final Long id;
+    private Long id;
 
     // 회원 정보 식별자
     @ManyToOne // 다대일
     @JoinColumn(name = "member_id", nullable = false) // 외래키
-    private final Member member;
+    private Member member;
 
     // 숙소 객실 정보 식별자
     @ManyToOne // 다대일
     @JoinColumn(name = "accommodation_room_id", nullable = false) // 외래키
-    private final AccommodationRoom accommodationRoom;
+    private AccommodationRoom accommodationRoom;
 
     // 예약 날짜
     @Column(name = "reservation_date", nullable = false)
-    private final LocalDate reservationDate;
+    private LocalDate reservationDate;
 
     // 체크인 날짜
     @Column(name = "check_in", nullable = false)
-    private final LocalDate checkIn;
+    private LocalDate checkIn;
 
     // 체크아웃 날짜
     @Column(name = "check_out", nullable = false)
-    private final LocalDate checkOut;
+    private LocalDate checkOut;
 
     // 예약 인원
     @Column(name = "guest_count", nullable = false)
-    private final int guestCount;
+    private int guestCount;
 
     // 총 가격
     @Column(name = "total_price", nullable = false)
-    private final int totalPrice;
+    private int totalPrice;
 
     // 예약 상태 (보류, 확정, 취소)
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private final ReservationStatus status;
+    private ReservationStatus status;
+
+    // 명시적 생성자
+    public Reservation(Long id, Member member, AccommodationRoom accommodationRoom,
+                       LocalDate reservationDate, LocalDate checkIn, LocalDate checkOut,
+                       int guestCount, int totalPrice, ReservationStatus status) {
+        this.id = id;
+        this.member = member;
+        this.accommodationRoom = accommodationRoom;
+        this.reservationDate = reservationDate;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.guestCount = guestCount;
+        this.totalPrice = totalPrice;
+        this.status = status;
+    }
 
     @Override
     public String toString() {
@@ -73,6 +89,20 @@ public class Reservation extends CommonEntity {
                 ", totalPrice=" + totalPrice +
                 ", status=" + status +
                 '}';
+    }
+
+    public Reservation confirmed() {
+        return new Reservation(
+                this.id,
+                this.member,
+                this.accommodationRoom,
+                this.reservationDate,
+                this.checkIn,
+                this.checkOut,
+                this.guestCount,
+                this.totalPrice,
+                ReservationStatus.CONFIRMED
+        );
     }
 
 

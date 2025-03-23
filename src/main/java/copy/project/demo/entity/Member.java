@@ -5,7 +5,7 @@ import copy.project.demo.entity.enums.MemberGender;
 import copy.project.demo.entity.enums.MemberRole;
 import copy.project.demo.entity.enums.MemberType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,26 +15,11 @@ import java.time.LocalDate;
  */
 @Entity // JPA 엔티티로 등록
 @Getter // Lombok Getter 자동 생성
-@AllArgsConstructor
-@NoArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "member", uniqueConstraints = {
         @UniqueConstraint(name = "UK_member_loginId", columnNames = "login_id") // 회원가입 ID 중복 방지 제약 조건
 })
 public class Member extends CommonEntity { // 회원 정보
-
-    protected Member () {
-        this.id = null;
-        this.loginId = null;
-        this.password = null;
-        this.type = null;
-        this.name = null;
-        this.nickname = null;
-        this.phone = null;
-        this.gender = null;
-        this.birthDate = null;
-        this.role = null;
-    }
 
     // 회원 식별자 값
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -81,7 +66,23 @@ public class Member extends CommonEntity { // 회원 정보
     @Enumerated(EnumType.STRING)
     private MemberRole role;
 
-    // 회원 정보 수정용
+    // 명시적 생성자
+    public Member(Long id, String loginId, String password, MemberType type,
+                  String name, String nickname, String phone, MemberGender gender,
+                  LocalDate birthDate, MemberRole role) {
+        this.id = id;
+        this.loginId = loginId;
+        this.password = password;
+        this.type = type;
+        this.name = name;
+        this.nickname = nickname;
+        this.phone = phone;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.role = role;
+    }
+
+    // 회원 정보 수정용 (불변 객체처럼 새로운 객체 반환)
     public Member copy(String nickname, String phone) {
         return new Member(
                 this.id,

@@ -1,9 +1,9 @@
 package copy.project.demo.entity;
 
-import copy.project.demo.entity.common.CommonEntity;
+import copy.project.demo.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -17,30 +17,37 @@ import java.time.LocalDateTime;
 /* 쿠폰 엔티티 */
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Coupon extends CommonEntity {
 
     // 쿠폰 식별자
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private final Long id;
+    private Long id;
 
     // 회원 정보
     @ManyToOne // 연관 관계 다대일
     @JoinColumn(name = "member_id", nullable = false) // 외래키
-    private final Member member;
+    private Member member;
 
     // 쿠폰 코드
     @Column(name = "code", nullable = false)
-    private final String code;
+    private String code;
 
     // 할인 금액
     @Column(name = "discount_amount", nullable = false)
-    private final int discountAmount;
+    private int discountAmount;
 
     // 쿠폰 만료 날짜
     @Column(name = "expiry_date", nullable = false)
-    private final LocalDateTime expiryDate;
+    private LocalDateTime expiryDate;
+
+    public Coupon(Member member, String code, int discountAmount, LocalDateTime expiryDate) {
+        this.member = member;
+        this.code = code;
+        this.discountAmount = discountAmount;
+        this.expiryDate = expiryDate;
+    }
 
     @Override
     public String toString() {

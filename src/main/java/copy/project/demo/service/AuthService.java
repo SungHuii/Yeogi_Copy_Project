@@ -2,7 +2,7 @@ package copy.project.demo.service;
 
 import copy.project.demo.dto.MemberDTO;
 import copy.project.demo.entity.Member;
-import copy.project.demo.entity.common.JwtUtil;
+import copy.project.demo.common.JwtUtil;
 import copy.project.demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

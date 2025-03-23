@@ -39,11 +39,11 @@ public class KakaoPayController {
 
         String tid = SessionUtils.getStringAttributeValue("tid");
         Long reservationId = Long.parseLong(SessionUtils.getStringAttributeValue("reservationId"));
-        Long reservationId2 = (Long) SessionUtils.getAttribute("reservationId");
+        String reservationId2 = (String) SessionUtils.getAttribute("reservationId");
 
         log.info("결제승인 요청을 인증하는 토큰: {}", pgToken);
         log.info("예약 ID : {}", reservationId);
 
-        return kakaoPayService.payApprove(tid, pgToken, reservationId);
+        return kakaoPayService.payApprove(tid, pgToken, reservationId2);
     }
 }

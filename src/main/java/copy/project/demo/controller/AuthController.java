@@ -4,7 +4,7 @@ package copy.project.demo.controller;
 import copy.project.demo.dto.LoginRequestDTO;
 import copy.project.demo.dto.MemberDTO;
 import copy.project.demo.entity.Member;
-import copy.project.demo.entity.common.JwtUtil;
+import copy.project.demo.common.JwtUtil;
 import copy.project.demo.entity.enums.MemberRole;
 import copy.project.demo.repository.MemberRepository;
 import copy.project.demo.service.AuthService;
