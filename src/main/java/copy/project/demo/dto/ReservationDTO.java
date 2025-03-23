@@ -2,11 +2,7 @@ package copy.project.demo.dto;
 
 import copy.project.demo.entity.enums.ReservationStatus;
 import lombok.Getter;
-<<<<<<< HEAD
-=======
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
->>>>>>> master
 
 import java.time.LocalDate;
 
@@ -15,12 +11,7 @@ import java.time.LocalDate;
  */
 /* 예약 정보 DTO */
 @Getter
-<<<<<<< HEAD
-
-=======
 @RequiredArgsConstructor
-@NoArgsConstructor(force = true)  // 기본 생성자 추가 (final 필드 강제 초기화)
->>>>>>> master
 public class ReservationDTO {
 
     private final Long id; // 식별자 값

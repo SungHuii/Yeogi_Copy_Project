@@ -2,11 +2,7 @@ package copy.project.demo.dto;
 
 import copy.project.demo.entity.enums.AccommodationType;
 import lombok.Getter;
-<<<<<<< HEAD
-=======
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
->>>>>>> master
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,25 +14,7 @@ import java.util.List;
 
 /* 숙소 DTO */
 @Getter
-<<<<<<< HEAD
-
-public class AccommodationDTO {
-
-    private Long id; // 식별자 값
-    private String name; // 숙소명
-    private String description; // 숙소 설명
-    private AccommodationType type; // 숙소 타입
-    private String address; // 숙소 주소
-    private BigDecimal latitude; // 위도
-    private BigDecimal longitude; // 경도
-    private String imageUrl; // 숙소 이미지
-    private List<AccommodationRoomDTO> roomList; // 숙소 방 리스트
-
-    // Jackson의 역직렬화 과정에 필요한 기본 생성자
-    public AccommodationDTO() {
-=======
 @RequiredArgsConstructor
-@NoArgsConstructor(force = true)  // 기본 생성자 추가 (final 필드 강제 초기화)
 public class AccommodationDTO {
 
     private final Long id; // 식별자 값
@@ -48,25 +26,6 @@ public class AccommodationDTO {
     private final BigDecimal longitude; // 경도
     private final String imageUrl; // 숙소 이미지
     private final List<AccommodationRoomDTO> roomList; // 숙소 방 리스트
-
-    // Jackson의 역직렬화 과정에 필요한 기본 생성자
-    // @NoArgsConstructor(force = true) 애너테이션으로 인해 강제로 초기화 가능하여 삭제
-/*    public AccommodationDTO() {
->>>>>>> master
-        this.id = null;
-        this.name = null;
-        this.description = null;
-        this.type = null;
-        this.address = null;
-        this.latitude = null;
-        this.longitude = null;
-        this.imageUrl = null;
-        this.roomList = new ArrayList<>();
-<<<<<<< HEAD
-    }
-=======
-    }*/
->>>>>>> master
 
     // 빈 리스트로 초기화하는 추가 생성자
     public AccommodationDTO(Long id, String name, String description, AccommodationType type,

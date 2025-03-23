@@ -1,11 +1,7 @@
 package copy.project.demo.dto;
 
 import lombok.Getter;
-<<<<<<< HEAD
-=======
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
->>>>>>> master
 
 import java.time.LocalDateTime;
 
@@ -15,12 +11,7 @@ import java.time.LocalDateTime;
 
 /* 쿠폰 DTO */
 @Getter
-<<<<<<< HEAD
-
-=======
 @RequiredArgsConstructor
-@NoArgsConstructor(force = true)  // 기본 생성자 추가 (final 필드 강제 초기화)
->>>>>>> master
 public class CouponDTO {
 
     private final Long id; // 식별자 값
