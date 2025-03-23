@@ -1,4 +1,5 @@
 :root {
+<<<<<<< HEAD
   font-family: Pretendard, pretendard_Fallback, -apple-system, BlinkMacSystemFont, system-ui,
       Roboto, Helvetica Neue, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, Malgun Gothic,
       Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif;
@@ -9,15 +10,28 @@
   color-scheme: light dark;
   color: #333;
   background-color: #fff;
+=======
+    font-family: Pretendard, pretendard_Fallback, -apple-system, BlinkMacSystemFont, system-ui,
+        Roboto, Helvetica Neue, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, Malgun Gothic,
+        Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-size: 16px;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    color-scheme: light dark;
+    color: #333;
+    background-color: #fff;
+>>>>>>> master
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* common */
 .contents {
+<<<<<<< HEAD
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -46,10 +60,41 @@ button {
 }
 button svg {
   fill: #333;
+=======
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1280px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.contents.flex-column {
+    flex-direction: column;
+}
+.logo {
+    width: 82px;
+    height: 14px;
+    fill: rgb(255, 71, 82);
+    cursor: pointer;
+}
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    background-color: #fff;
+    border: 0;
+}
+button svg {
+    fill: #333;
+>>>>>>> master
 }
 
 /* common */
 .header {
+<<<<<<< HEAD
   position: relative;
   height: 56px;
   background: #fff;
@@ -92,10 +137,55 @@ button svg {
 }
 .btn.google-login:hover {
   background-color: #f5f5f5;
+=======
+    position: relative;
+    height: 56px;
+    background: #fff;
+    border-bottom: 1px solid #ebebeb;
+    z-index: 1;
+}
+.btn {
+    width: 100%;
+    height: 48px;
+    padding: 10px 8px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+.btn.blue {
+    background-color: rgb(29 139 255);
+}
+.btn.blue:hover {
+    background-color: rgb(0 108 224);
+}
+.btn.kakao-login {
+    background-color: #ffde00;
+}
+.btn.kakao-login:hover {
+    background-color: #fbda00;
+}
+.btn.naver-login {
+    background-color: #00c73c;
+    color: #fff;
+}
+.btn.naver-login:hover {
+    background-color: #00c13a;
+}
+.btn.google-login {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    color: #0000008f;
+}
+.btn.google-login:hover {
+    background-color: #f5f5f5;
+>>>>>>> master
 }
 
 /* Sidebar */
 .side-bar-wrapper {
+<<<<<<< HEAD
   position: fixed;
   top: 0;
   right: 0;
@@ -203,3 +293,187 @@ button svg {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+=======
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+    color: #333;
+    background-color: rgba(0, 0, 0, 0.48);
+}
+.side-bar {
+    flex: 0 1 520px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+.side-bar__action-bar {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    padding: 0 20px;
+}
+.side-bar__contents {
+    overflow: auto;
+}
+.side-bar__contents .banner {
+    margin-bottom: 10px;
+}
+.menu-group-wrapper {
+    padding: 10px 20px;
+    border-bottom: 1px solid #f5f5f5;
+}
+.menu-group-wrapper:first-child {
+    padding-bottom: 12px;
+}
+.menu-group__title {
+    display: block;
+    padding: 10px 0;
+    color: #999;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+.menu-items-wrapper a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.menu-items-wrapper li svg {
+    fill: rgb(194, 194, 194);
+}
+
+/* main-visual */
+.home-search-section {
+    position: relative;
+    width: 100%;
+}
+.main-visual {
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 3.75rem 1.25rem;
+    z-index: 11;
+}
+.main-visual__title {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: #fff;
+    font-weight: 700;
+}
+.main-visual__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.main-search-wrapper {
+    width: 100%;
+}
+.main-search__mobile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    height: 48px;
+    padding: 0 1rem 0 1.25rem;
+    background: #fff;
+    border-radius: 8px;
+}
+.main-search-wrapper svg {
+    fill: rgb(153, 153, 153);
+}
+.main-search-wrapper span {
+    color: #999;
+    font-weight: 600;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.home-slide-section {
+    width: 100%;
+    height: 100%;
+    margin: 1rem auto 0;
+    padding: 0;
+}
+.home-slide__title {
+    width: 100%;
+    padding: 1rem 1.25rem;
+}
+.home-slide__flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.slide__title {
+    color: #515151;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: normal;
+}
+.home-slide__cont {
+    width: 100%;
+}
+.home-slide__event .swiper-slide {
+    position: relative;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+.home-slide__cont .swiper {
+    padding-bottom: 1.875rem;
+}
+.home-slide__cont .swiper-slide {
+    width: auto;
+}
+.slide__img {
+    width: 100%;
+    max-width: 324px;
+}
+.link-more {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: normal;
+    letter-spacing: 0px;
+    color: #1d8bff;
+    padding: 0;
+    text-decoration: auto;
+}
+.slide__link {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+.home-slide__famous .slide__img {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 156px;
+    height: 156px;
+}
+.home-slide__famous img {
+    width: 100%;
+}
+.home-slide__famous p {
+    padding: 0.75rem 0.25rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: normal;
+    color: #333;
+}
+>>>>>>> master

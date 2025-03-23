@@ -2,6 +2,11 @@ package copy.project.demo.dto;
 
 import copy.project.demo.entity.enums.ReservationStatus;
 import lombok.Getter;
+<<<<<<< HEAD
+=======
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+>>>>>>> master
 
 import java.time.LocalDate;
 
@@ -10,17 +15,22 @@ import java.time.LocalDate;
  */
 /* 예약 정보 DTO */
 @Getter
+<<<<<<< HEAD
 
+=======
+@RequiredArgsConstructor
+@NoArgsConstructor(force = true)  // 기본 생성자 추가 (final 필드 강제 초기화)
+>>>>>>> master
 public class ReservationDTO {
 
-    private Long id; // 식별자 값
-    private Long memberId; // 예약자 식별자 값
-    private Long accommodationRoomId; // 숙소 방 식별자 값
-    private LocalDate reservationDate; // 예약 날짜
-    private LocalDate checkIn; // 체크인 날짜
-    private LocalDate checkOut; // 체크아웃 날짜
-    private int guestCount; // 인원 수
-    private int totalPrice; // 총 가격
-    private ReservationStatus status; // 예약 상태(예약 완료, 취소, 보류)
+    private final Long id; // 식별자 값
+    private final Long memberId; // 예약자 식별자 값
+    private final Long accommodationRoomId; // 숙소 방 식별자 값
+    private final LocalDate reservationDate; // 예약 날짜
+    private final LocalDate checkIn; // 체크인 날짜
+    private final LocalDate checkOut; // 체크아웃 날짜
+    private final int guestCount; // 인원 수
+    private final int totalPrice; // 총 가격
+    private final ReservationStatus status; // 예약 상태(예약 완료, 취소, 보류)
 
 }
