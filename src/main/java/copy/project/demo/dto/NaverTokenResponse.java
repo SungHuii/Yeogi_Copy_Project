@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /**
- * Created by SungHui on 2025. 3. 11.
+ * Created by SungHui on 2025. 3. 12.
  */
 @Data
 @NoArgsConstructor
-public class KakaoTokenResponse {
+public class NaverTokenResponse {
 
     @JsonProperty("access_token")
     private String accessToken;

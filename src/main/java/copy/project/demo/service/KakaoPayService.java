@@ -65,7 +65,8 @@ public class KakaoPayService {
     }
 
     // 카카오페이 결제 승인
-    public ApproveResponse payApprove(String tid, String pgToken, String reservationId2) {
+    public ApproveResponse payApprove(String tid, String pgToken, Long reservationId) {
+
         Map<String, String> parameters = new HashMap<>();
         parameters.put("cid", "TC0ONETIME"); // 가맹점 코드(테스트용)
         parameters.put("tid", tid); // 결제 고유번호

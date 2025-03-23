@@ -44,6 +44,6 @@ public class KakaoPayController {
         log.info("결제승인 요청을 인증하는 토큰: {}", pgToken);
         log.info("예약 ID : {}", reservationId);
 
-        return kakaoPayService.payApprove(tid, pgToken, reservationId2);
+        return kakaoPayService.payApprove(tid, pgToken, Long.valueOf(reservationId2));
     }
 }

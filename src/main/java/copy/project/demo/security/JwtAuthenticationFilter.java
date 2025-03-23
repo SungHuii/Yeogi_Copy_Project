@@ -6,12 +6,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -22,7 +24,9 @@ import java.io.IOException;
 /* 클라이언트가 API 요청 시 JWT를 포함해서 보낼 때 인증을 수행하기 위한 필터
 *  로그인 시 ID, PW 기반 인증을 먼저 검증 후 JWT 토큰을 발급.
 * */
+@Component
 @RequiredArgsConstructor
+@Order(1)
 public class JwtAuthenticationFilter extends OncePerRequestFilter /* 요청당 한번만 실행하는 필터 */ {
 
     private final JwtUtil jwtUtil; // JWT 토큰을 생성, 검증하고 사용자 정보를 추출하는 유틸

@@ -1,7 +1,11 @@
 package copy.project.demo.service;
 
 import copy.project.demo.dto.MemberDTO;
+import copy.project.demo.dto.NaverUserInfo;
 import copy.project.demo.entity.Member;
+import copy.project.demo.entity.enums.MemberGender;
+import copy.project.demo.entity.enums.MemberRole;
+import copy.project.demo.entity.enums.MemberType;
 import copy.project.demo.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -101,4 +105,31 @@ public class MemberService {
         }
     }
 
+    public Member createNaverMember(NaverUserInfo naverUserInfo, String accessToken) {
+
+        // 네이버 응답 데이터 검증
+        if( naverUserInfo == null || naverUserInfo.getResponse() == null) {
+            throw new IllegalArgumentException("네이버 사용자 정보를 가져올 수 없습니다.");
+        }
+
+        // 데이터 추출
+        NaverUserInfo.Response response = naverUserInfo.getResponse();
+
+        // 새로운 네이버 회원 생성
+        Member naverMember = new Member(
+                null,
+                response.getEmail(),
+                null,
+                MemberType.NAVER,
+                response.getName(),
+                response.getNickname(),
+                response.getPhone(),
+                MemberGender.valueOf(response.getGender()),
+                response.getBirthDate(),
+                MemberRole.USER
+        );
+
+        // 회원 정보 저장 반환
+        return memberRepository.save(naverMember);
+    }
 }
