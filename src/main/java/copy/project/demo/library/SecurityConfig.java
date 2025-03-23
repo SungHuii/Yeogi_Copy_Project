@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -78,10 +77,10 @@ public class SecurityConfig {
         return new DefaultOAuth2UserService();
     }
     // OIDC 사용자 정보 서비스 설정
-    @Bean
+    /*@Bean
     public OidcUserService oidcUserService() {
         return new OidcUserService();
-    }
+    }*/
 
     // 사용자 권한 체크, 보안 필터 체인 설정
     @Bean
@@ -92,12 +91,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth // security 처리에 HttpServletRequest 사용
                         .requestMatchers("/members/**").permitAll() // /members/** 경로는 인증 없이 접근 가능
                         .requestMatchers("/members/admin/**").hasRole("ADMIN") // 관리자만 접근 가능한 경로
-                        .anyRequest().permitAll())
+                        .anyRequest().permitAll()) // 일단 모든 요청은 허용 추후 authenticated()로 변경
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login") // 로그인 페이지 경로
                         .userInfoEndpoint(userInfo -> userInfo // 사용자 정보 엔드포인트 설정
                                 .userService(oAuth2UserService()) // OAuth2 사용자 정보 서비스 설정
-                                .oidcUserService(oidcUserService()) // OIDC 사용자 정보 서비스 설정
                         )
                         .permitAll()) // OAuth2 로그인 모두 허용
                 .authenticationProvider(authenticationProvider()) // 사용자 인증 제공자 설정

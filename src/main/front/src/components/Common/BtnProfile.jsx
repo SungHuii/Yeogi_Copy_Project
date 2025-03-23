@@ -1,11 +1,11 @@
 import 'react';
 
-const BtnLogin = ({ onClick }) => {
+const BtnProfile = ({ onClick }) => {
     return (
         <button type="button" className="btn login blue" onClick={onClick}>
-            회원가입 / 로그인
+            프로필 페이지로
         </button>
     );
 };
 
-export default BtnLogin;
+export default BtnProfile;

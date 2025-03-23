@@ -1,8 +1,6 @@
 package copy.project.demo.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -12,8 +10,7 @@ import java.time.LocalDateTime;
 
 /* 이벤트 DTO */
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class EventDTO {
 
     private Long id; // 식별자 값

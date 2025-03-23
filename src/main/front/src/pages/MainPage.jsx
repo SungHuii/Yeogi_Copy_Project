@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Common/Header";
 import axios from "axios";
-import KakaoPayButton from "../components/Kakao/KakaoPayButton";
+import mainVisual from "../assets/Images/05_Kv_PC_Light_B.8067bd3b.webp";
 
 const MainPage = () => {
     const [hello, setHello] = useState('');
@@ -75,7 +75,23 @@ const MainPage = () => {
     return (
         <div className="App">
             <Header />
-            <div>
+            <main>
+                <section aria-label="상단 메인 비주얼" className="home-search-section">
+                    <div className="main-visual contents flex-column">
+                        <h1 className="main-visual__title">파리부터 부산 게하까지,<br /> 여행할때 여기어때</h1>
+                        <div className="main-search-wrapper">
+                            <div className="main-search__mobile">
+                                <div>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M8.85 16.1a6.707 6.707 0 004.394-1.642l-.027.034 3.4 3.508L18 16.574l-3.47-3.58A7.163 7.163 0 0015.7 9.05C15.7 5.156 12.633 2 8.85 2 5.067 2 2 5.156 2 9.05c0 3.894 3.067 7.05 6.85 7.05zm0-1.99c2.695 0 4.88-2.263 4.88-5.055S11.545 4 8.85 4 3.97 6.263 3.97 9.055s2.185 5.055 4.88 5.055z" fill="current"></path></svg>
+                                </div>
+                                <span>여행지나 숙소를 검색해보세요.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <img src={mainVisual} alt="메인 비주얼 이미지" className="main-visual__img" />
+                </section>
+            </main>
+            <div className="contents flex-column">
                 <p>백엔드 데이터: {hello}</p>
                 {error && <p>{error}</p>}
                 {user ? (
@@ -115,7 +131,6 @@ const MainPage = () => {
                     />
                     <button onClick={handleSearch}>검색</button>
                 </div>
-                <KakaoPayButton/>
                 <div>
                     <h2>숙소 검색 결과</h2>
                     {searchError && <p>{searchError}</p>}

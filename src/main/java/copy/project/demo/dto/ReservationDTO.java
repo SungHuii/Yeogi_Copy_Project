@@ -1,9 +1,7 @@
 package copy.project.demo.dto;
 
 import copy.project.demo.entity.enums.ReservationStatus;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -12,8 +10,7 @@ import java.time.LocalDate;
  */
 /* 예약 정보 DTO */
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class ReservationDTO {
 
     private Long id; // 식별자 값

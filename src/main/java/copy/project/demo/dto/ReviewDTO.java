@@ -1,8 +1,6 @@
 package copy.project.demo.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
  * Created by SungHui on 2025. 1. 24.
@@ -10,8 +8,7 @@ import lombok.NoArgsConstructor;
 
 /* 리뷰 DTO */
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class ReviewDTO {
 
     private Long id; // 식별자 값
