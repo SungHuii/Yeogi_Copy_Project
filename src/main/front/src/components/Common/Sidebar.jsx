@@ -1,6 +1,6 @@
 import 'react';
 import MenuItems from './MenuItems';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import BtnLogin from './BtnLogin';
 import BtnProfile from './BtnProfile';
 
@@ -32,7 +32,7 @@ const Sidebar = ({ onClose }) => {
 
     //프로필 페이지 라우팅
     const goProfile = () => {
-        navigate('/profile');
+        navigate('/profile/info');
     };
 
     return (
@@ -60,6 +60,9 @@ const Sidebar = ({ onClose }) => {
                         {/* 회원가입 / 로그인 버튼 */}
                         <BtnLogin onClick={goLogin} />
                         {/* 내 정보 관리 */}
+                        <Routes>
+                            <Route path="/profile/info" />
+                        </Routes>
                         <BtnProfile onClick={goProfile} />
                     </div>
                     {/* 메뉴 리스트 */}

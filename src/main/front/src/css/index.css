@@ -371,3 +371,49 @@ button svg {
     margin-bottom: 12px;
     font-weight: 600;
 }
+
+/* ProfilePage */
+.profile-layout{
+    display: flex;
+    gap: 1.25rem;
+    max-width: 1200px;
+    margin: 1.875rem auto 0;
+    padding: 0 40px;
+}
+.profile-layout__navigation{
+    margin-top: 0.75rem;
+    height: fit-content;
+    border: 1px solid #ebebeb;
+    border-radius: 12px;
+    flex-basis: 190px;
+}
+.profile-layout__navigation ul{
+    margin: 0;
+    padding: 0.25rem 0;
+}
+.profile-layout__navigation li{
+    height: 3.75rem;
+    padding: 0 1.5rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    border-bottom: 1px solid #ebebeb;
+}
+.profile-layout__navigation li:last-child{
+    border-bottom: 0;
+}
+.profile-layout__navigation a{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    color: #333;
+    text-decoration: none;
+}
+.profile-layout__navigation svg{
+    fill: #c2c2c2;
+}
+
+/* my-info */
+.my-info {
+    margin-left: 1.5rem;
+}

@@ -2,6 +2,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import MainPage from "./pages/MainPage";
+import ProfileMyInfo from "./components/profile/ProfileMyInfo";
 
 function App() {
     // sihong 20250211 - 브라우저 라우팅을 위해 react-router 적용
@@ -13,7 +14,9 @@ function App() {
                 {/* http://localhost:5173/login */}
                 <Route path="/login" element={<LoginPage />} />
                 {/* http://localhost:5173/profile */}
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/profile/*" element={<ProfilePage />}>
+                    <Route path="info" element={<ProfileMyInfo />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );
